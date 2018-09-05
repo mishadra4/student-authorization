@@ -27,6 +27,11 @@ public class SecurityController {
     @Autowired
     private LectureDao lectureDao;
 
+    @RequestMapping(value = "/")
+    public ModelAndView login(){
+        return new ModelAndView("/login");
+    }
+
     @RolesAllowed(value = "ROLE_USER")
     @RequestMapping(value = "/success", method = RequestMethod.GET)
     public ModelAndView userCheckoutSuccess() {
