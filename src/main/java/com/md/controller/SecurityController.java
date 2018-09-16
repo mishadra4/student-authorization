@@ -4,8 +4,6 @@ import com.md.dao.LectureDao;
 import com.md.dao.StudentDao;
 import com.md.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -29,7 +27,7 @@ public class SecurityController {
 
     @RequestMapping(value = "/")
     public ModelAndView login(){
-        return new ModelAndView("/login");
+        return new ModelAndView("/index");
     }
 
     @RolesAllowed(value = "ROLE_USER")

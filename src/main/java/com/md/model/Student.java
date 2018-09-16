@@ -21,6 +21,9 @@ public class Student {
     @Column(name = "LAST_NAME")
     private String lastName;
 
+//    @Column(name = "IS_PRESENT")
+//    private boolean isPresent;
+
     @NotEmpty
     @Column(name = "USERNAME")
     private String username;
@@ -29,7 +32,7 @@ public class Student {
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "IDLECTURE")
+    @Column(name = "ID_LECTURE")
     private Integer lectureID;
 
     public String getFirstName() {

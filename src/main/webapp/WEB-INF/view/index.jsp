@@ -10,7 +10,7 @@
   <jsp:attribute name="title">Welcome page</jsp:attribute>
 
   <jsp:body>
-    <h2>Hello my dear student</h2>
+    <h2 align="center">Hello my dear student</h2>
   </jsp:body>
 
 </page:template>

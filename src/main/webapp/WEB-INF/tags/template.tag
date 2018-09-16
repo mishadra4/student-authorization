@@ -39,7 +39,6 @@
 
 <jsp:doBody/>
 
-
 <headerTemplate:angular-temaplate/>
 
 </body>

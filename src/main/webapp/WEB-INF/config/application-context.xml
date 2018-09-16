@@ -16,7 +16,7 @@
        http://www.springframework.org/schema/task
        http://www.springframework.org/schema/task/spring-task.xsd">
 
-    <!--find property file. See bean id='dataSource' for example ${jdbc.hsqldb.driverClass}-->
+    <!--find property file. See model id='dataSource' for example ${jdbc.hsqldb.driverClass}-->
     <context:property-placeholder location="classpath:util.properties" />
 
     <!-- XML Bean Definitions -->
@@ -33,6 +33,11 @@
         <jdbc:script location="classpath:test-data.sql"/>
     </jdbc:initialize-database>
 
+
+    <!-- REST template configuration -->
+    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
+
+    <!--Do not forget activate @Transactional JPA annotation with <annotation-driven/>-->
     <!-- JPA Persistence Context and EntityManager configuration -->
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
@@ -40,6 +45,7 @@
         <property name="packagesToScan">
         <list>
             <value>com.md.model</value>
+            <value>com.md.rest.model</value>
         </list>
         </property>
         <property name="dataSource" ref="dataSource" />
