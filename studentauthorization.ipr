@@ -65,7 +65,11 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="mvc_html5_angular" target="1.8" />
+      <module name="student" target="1.8" />
+      <module name="student-authorization" target="1.8" />
       <module name="student_authorization" target="6" />
+      <module name="studentauthorization" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
@@ -74,6 +78,14 @@
       <option name="myName" value="Project Default" />
     </profile>
     <version value="1.0" />
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="mvc_html5_angular" options="-Xlint:all" />
+      <module name="student" options="-Xlint:all" />
+      <module name="student-authorization" options="-Xlint:all" />
+      <module name="studentauthorization" options="-Xlint:all" />
+    </option>
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">

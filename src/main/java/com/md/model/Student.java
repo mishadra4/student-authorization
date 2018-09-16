@@ -29,7 +29,7 @@ public class Student {
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "ID_LECTURE")
+    @Column(name = "IDLECTURE")
     private Integer lectureID;
 
     public String getFirstName() {
