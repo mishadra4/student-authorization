@@ -5,7 +5,7 @@ angular.module("myApp")
 .factory("angularFactory", function(someFactoryValue) {
    var angularFactory = {
        'angularVersion': someFactoryValue,
-       'siteName': 'javastudy.ru',
+       'siteName': '',
        getAngularVersion: function() {
            alert('Angular version is' + this.angularVersion);
        }

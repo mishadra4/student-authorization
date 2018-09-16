@@ -33,12 +33,6 @@
         <jdbc:script location="classpath:test-data.sql"/>
     </jdbc:initialize-database>
 
-
-
-    <!-- REST template configuration -->
-    <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
-
-    <!--Do not forget activate @Transactional JPA annotation with <annotation-driven/>-->
     <!-- JPA Persistence Context and EntityManager configuration -->
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
@@ -70,22 +64,5 @@
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
-    <!--not uses but could autowired in JDBCExample bean-->
-    <!--     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-          <property name="dataSource" ref="dataSource"></property>
-      </bean>
-       -->
-
-    <!-- Quartz scheduling configuration -->
-    <task:annotation-driven/>
-
-    <!-- ScheduleTask example. Use
-    <context:component-scan base-package="ru.javastudy.mvcHtml5Angular.mvc.scheduling"/>
-    and @Component on ru.javastudy.mvcHtml5Angular.mvc.scheduling.ScheduleTask
-     or
-    <bean id="scheduleTask" class="ru.javastudy.mvcHtml5Angular.mvc.scheduling.ScheduleTask"/>
-    -->
-
-    <!--End scheduling configuration -->
 
 </beans>
