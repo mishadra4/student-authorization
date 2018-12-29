@@ -9,10 +9,10 @@ public class Lecture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IDLECTURE")
+    @Column(name = "ID_LECTURE")
     private Integer lectureId;
 
-    @OneToMany
+    @ManyToMany
     List<Student> students;
 
 
@@ -22,5 +22,13 @@ public class Lecture {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public Integer getLectureId() {
+        return lectureId;
+    }
+
+    public List<Student> getStudents() {
+        return students;
     }
 }

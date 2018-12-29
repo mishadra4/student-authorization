@@ -49,15 +49,19 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
+    <!-- File Upload bean config-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- set the maximum file size in bytes -->
+        <property name="maxUploadSize" value="100000"/>
+    </bean>
+
     <mvc:view-controller path="/" view-name="index"/>
     <mvc:view-controller path="/index.html" view-name="/index"/>
     <mvc:view-controller path="/login.html" view-name="/form/login"/>
+    <mvc:view-controller path="/register.html" view-name="/form/registration"/>
     <mvc:view-controller path="/success.html" view-name="/form/success"/>
     <mvc:view-controller path="/teacher.html" view-name="/form/teacher"/>
-    <mvc:view-controller path="/about.html" view-name="/about/about"/>
-    <mvc:view-controller path="/rest.html" view-name="/rest/rest"/>
-    <mvc:view-controller path="/orm.html" view-name="/orm/orm"/>
-    <mvc:view-controller path="/cookie.html" view-name="/cookie/cookieView"/>
+    <mvc:view-controller path="/upload.html" view-name="/form/dataUpload"/>
 
 
     <!-- Static Resources Configuration (get access to static sources such as CSS and JavaScript files) -->

@@ -23,13 +23,15 @@
     <spring:url value="/resources/font-awesome/css/font-awesome.min.css" var="fontawesome"/>
     <link href="${fontawesome}" rel="stylesheet" />
 
+    <!-- Bootstrap Core JavaScript -->
+    <spring:url value="/resources/js/bootstrap.min.js" var="js"/>
+    <script src="${js}"></script>
+
     <!-- jQuery -->
     <spring:url value="/resources/js/jquery-2.1.4.min.js" var="jqueryjs"/>
     <script src="${jqueryjs}"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <spring:url value="/resources/js/bootstrap.min.js" var="js"/>
-    <script src="${js}"></script>
+
 </head>
 
 <body>
