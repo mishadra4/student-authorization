@@ -19,4 +19,9 @@ public class LectureDaoImpl implements LectureDao {
         lecture.setLectureId(3);
         entityManager.persist(lecture);
     }
+
+    @Override
+    public Lecture getLecture(Integer id) {
+        return null;
+    }
 }
