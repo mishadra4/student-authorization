@@ -1,11 +1,14 @@
 package com.md.dao.impl;
 
 import com.md.dao.LectureDao;
+import com.md.model.Student;
 import org.springframework.stereotype.Repository;
 import com.md.model.Lecture;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Collections;
 
 @Repository
 public class LectureDaoImpl implements LectureDao {
@@ -22,6 +25,14 @@ public class LectureDaoImpl implements LectureDao {
 
     @Override
     public Lecture getLecture(Integer id) {
-        return null;
+        Student student = new Student();
+        student.setFirstName("Mykhailo");
+        student.setLastName("Drach");
+        student.setGroup("KH-310");
+        student.setPresent(false);
+        Lecture lecture = new Lecture();
+        lecture.setStudents(Collections.singletonList(student));
+        lecture.setLectureId(1);
+        return lecture;
     }
 }

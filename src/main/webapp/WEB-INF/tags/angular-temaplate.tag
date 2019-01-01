@@ -20,6 +20,10 @@
     <spring:url value="/resources/font-awesome/css/font-awesome.min.css" var="fontawesome"/>
     <link href="${fontawesome}" rel="stylesheet" />
 
+    <!-- Custom left nabigation -->
+    <spring:url value="/resources/css/left-navigation.css" var="left_navigation"/>
+    <link href="${left_navigation}" rel="stylesheet" />
+
     <!-- jQuery -->
     <spring:url value="/resources/js/jquery-2.1.4.min.js" var="jqueryjs"/>
     <script src="${jqueryjs}"></script>
@@ -52,13 +56,11 @@
 <div class="container">
     <!-- Footer -->
     <footer>
-        <div class="row">
-            <div class="col-lg-12">
+            <div class="footer">
                 <a href="<%=request.getContextPath()%>?languageVar=en">EN</a>
                 <a href="<%=request.getContextPath()%>?languageVar=ua">UA</a>
                 <p>Copyright © 2018</p>
             </div>
-        </div>
     </footer>
 </div>
 

@@ -1,5 +1,6 @@
 package com.md.controller;
 
+import com.md.model.Lecture;
 import com.md.service.LectureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -18,11 +19,11 @@ public class LectureController {
     @Autowired
     private LectureService lectureService;
 
-    @RequestMapping(value = "/lecture{id}", method = RequestMethod.GET)
-    public ModelAndView getLectures(@PathVariable("id")Integer id){
-        ModelAndView lecture = new ModelAndView("/lecture");
-
+    @RequestMapping(value = "/lecture/{id}", method = RequestMethod.GET)
+    public ModelAndView getLectures(@PathVariable("id") Integer id){
+        ModelAndView lecture = new ModelAndView("/form/lecture");
         lecture.addObject("lecture", lectureService.getLecture(id));
+        lecture.addObject("present", lectureService.getLecture(id).getStudents().stream().findFirst().get().isPresent());
 
         return lecture;
     }

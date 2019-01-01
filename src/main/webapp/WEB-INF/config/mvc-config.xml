@@ -21,7 +21,7 @@
 
     <!-- context:component-scan This tag will scan @Component, @Repository, @Service, @Controller
          and also resolves @Autowired and @Qualifier -->
-    <context:component-scan base-package="com.md.mvc" />
+    <context:component-scan base-package="com.md" />
 
     <!--
         mvc:annotation-driven configures Spring MVC annotations
@@ -49,11 +49,11 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
-    <!-- File Upload bean config-->
+<!--    &lt;!&ndash; File Upload bean config&ndash;&gt;
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!-- set the maximum file size in bytes -->
+        &lt;!&ndash; set the maximum file size in bytes &ndash;&gt;
         <property name="maxUploadSize" value="100000"/>
-    </bean>
+    </bean>-->
 
     <mvc:view-controller path="/" view-name="index"/>
     <mvc:view-controller path="/index.html" view-name="/index"/>
