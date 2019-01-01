@@ -150,6 +150,18 @@ body {
     bottom: 0;
     left: 0;
     padding: 1rem;
-    background-color: #efefef;
+    background-color: #2e353d;
     text-align: center;
+    color: #88b1c9;
+}
+
+.students {
+    padding-top: 6%;
+    padding-left: 20%;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 8px;
 }
