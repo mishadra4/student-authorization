@@ -38,7 +38,9 @@ public class UserAuthenticationSuccessSecurityHandler
                           HttpServletResponse response, Authentication authentication)
             throws IOException {
 
-        String targetUrl = determineTargetUrl(authentication);
+        String targetUrl = determineTargetUrl(request, response, authentication);
+
+
 
         if (response.isCommitted()) {
             logger.debug(
@@ -53,7 +55,7 @@ public class UserAuthenticationSuccessSecurityHandler
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
-    protected String determineTargetUrl(Authentication authentication) {
+    protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         boolean isUser = false;
         boolean isAdmin = false;
         Collection<? extends GrantedAuthority> authorities
@@ -70,6 +72,8 @@ public class UserAuthenticationSuccessSecurityHandler
                 break;
             }
         }
+
+        request.getSession().setAttribute("user", user);
 
         if (isUser) {
             return "/success.html";

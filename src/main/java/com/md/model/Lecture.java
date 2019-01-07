@@ -1,6 +1,7 @@
 package com.md.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -9,26 +10,75 @@ public class Lecture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_LECTURE")
+    @Column(name = "lecture_id")
     private Integer lectureId;
 
-    @ManyToMany
-    List<Student> students;
+    @Column(name = "NAME")
+    @Size(min = 3, max = 45)
+    private String name;
 
+    @Column(name = "ORDINAL_NUMBER")
+    private Integer ordinalNumber;
+
+    @Column(name = "DESCRIPTION")
+    private String description;
+
+    @ManyToMany
+    @JoinTable(
+            name = "lecture_group_mapping",
+            joinColumns = @JoinColumn(name = "lecture_id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private List<Group> groups;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lecturer_id", referencedColumnName = "lecture_id")
+    private Lecturer lecturer;
 
     public void setLectureId(Integer lectureId) {
         this.lectureId = lectureId;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
     }
 
     public Integer getLectureId() {
         return lectureId;
     }
 
-    public List<Student> getStudents() {
-        return students;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getOrdinalNumber() {
+        return ordinalNumber;
+    }
+
+    public void setOrdinalNumber(Integer ordinalNumber) {
+        this.ordinalNumber = ordinalNumber;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
+    }
+
+    public Lecturer getLecturer() {
+        return lecturer;
+    }
+
+    public void setLecturer(Lecturer lecturer) {
+        this.lecturer = lecturer;
     }
 }

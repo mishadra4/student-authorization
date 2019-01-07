@@ -9,6 +9,12 @@ import javax.persistence.*;
 @Table(name = "STUDENT")
 public class Student extends User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "student_id")
+    private Integer id;
+
+
     @NotEmpty
     @Column(name = "FIRST_NAME")
     private String firstName;
@@ -23,8 +29,9 @@ public class Student extends User {
     @Column(name = "ID_LECTURE")
     private Integer lectureID;
 
-    @Column(name = "ID_GROUP")
-    private String group;
+    @ManyToOne
+    @JoinColumn(name = "student_id", nullable = false)
+    private Group group;
 
     public String getFirstName() {
         return firstName;
@@ -58,11 +65,19 @@ public class Student extends User {
         isPresent = present;
     }
 
-    public String getGroup() {
+    public Group getGroup() {
         return group;
     }
 
-    public void setGroup(String group) {
+    public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }

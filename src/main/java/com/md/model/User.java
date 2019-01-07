@@ -1,12 +1,15 @@
 package com.md.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
-@Entity
+@Component
 @Table(name = "USER")
+@Scope("session")
 public class User {
 
     @Id

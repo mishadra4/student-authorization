@@ -1,27 +1,30 @@
 package com.md.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "SUBJECT")
 public class Subject {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID")
+    @Column(name = "subject_id")
     private Integer id;
 
     @Column(name = "NAME")
     private String name;
 
-    @ManyToMany
-    private List<Student> students;
-
-    @Column(name = "ID_LECTURER")
+    @ManyToOne
+    @JoinColumn(name = "subject_id", nullable = false)
     private Lecturer lecturer;
 
+    @ManyToMany
+    @JoinTable(
+            name = "subject_student_mapping",
+            joinColumns = @JoinColumn(name = "subject_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private List<Student> students;
 
     public Integer getId() {
         return id;

@@ -1,6 +1,7 @@
 package com.md.dao.impl;
 
 import com.md.dao.LectureDao;
+import com.md.model.Group;
 import com.md.model.Student;
 import org.springframework.stereotype.Repository;
 import com.md.model.Lecture;
@@ -28,10 +29,9 @@ public class LectureDaoImpl implements LectureDao {
         Student student = new Student();
         student.setFirstName("Mykhailo");
         student.setLastName("Drach");
-        student.setGroup("KH-310");
+        student.setGroup(new Group());
         student.setPresent(false);
         Lecture lecture = new Lecture();
-        lecture.setStudents(Collections.singletonList(student));
         lecture.setLectureId(1);
         return lecture;
     }
