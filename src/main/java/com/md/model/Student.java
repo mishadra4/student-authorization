@@ -5,8 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "STUDENT")
+@Entity(name = "STUDENT")
 public class Student extends User {
 
     @Id
@@ -30,7 +29,6 @@ public class Student extends User {
     private Integer lectureID;
 
     @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
     private Group group;
 
     public String getFirstName() {

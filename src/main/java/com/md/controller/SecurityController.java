@@ -55,12 +55,12 @@ public class SecurityController {
         return new ModelAndView("form/teacher");
     }
 
-    @RolesAllowed(value = "ROLE_ADMIN")
+/*    @RolesAllowed(value = "ROLE_ADMIN")
     @RequestMapping(value = "/createLecture", method = RequestMethod.GET)
     public ModelAndView createLecture() {
         lectureDao.createLecture();
         return new ModelAndView("form/teacher");
-    }
+    }*/
 
 
     public void setStudentDao(StudentDao studentDao) {

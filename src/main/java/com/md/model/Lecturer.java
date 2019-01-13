@@ -3,8 +3,8 @@ package com.md.model;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "LECTURER")
+
+@Entity(name = "lecturer")
 public class Lecturer extends User {
 
     @Id
@@ -24,5 +24,21 @@ public class Lecturer extends User {
 
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public List<Lecture> getLectures() {
+        return lectures;
+    }
+
+    public void setLectures(List<Lecture> lectures) {
+        this.lectures = lectures;
     }
 }

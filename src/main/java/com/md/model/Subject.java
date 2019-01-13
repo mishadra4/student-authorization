@@ -3,8 +3,7 @@ package com.md.model;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "SUBJECT")
+@Entity(name = "SUBJECT")
 public class Subject {
 
     @Id
@@ -16,7 +15,6 @@ public class Subject {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "subject_id", nullable = false)
     private Lecturer lecturer;
 
     @ManyToMany
@@ -42,19 +40,19 @@ public class Subject {
         this.name = name;
     }
 
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
-
     public Lecturer getLecturer() {
         return lecturer;
     }
 
     public void setLecturer(Lecturer lecturer) {
         this.lecturer = lecturer;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

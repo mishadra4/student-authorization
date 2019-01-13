@@ -4,8 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-@Entity
-@Table(name = "LECTURE")
+@Entity(name = "LECTURE")
 public class Lecture {
 
     @Id
@@ -30,8 +29,8 @@ public class Lecture {
             inverseJoinColumns = @JoinColumn(name = "group_id"))
     private List<Group> groups;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "lecturer_id", referencedColumnName = "lecture_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "lecturer_id")
     private Lecturer lecturer;
 
     public void setLectureId(Integer lectureId) {

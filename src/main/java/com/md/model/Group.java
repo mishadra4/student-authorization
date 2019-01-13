@@ -3,8 +3,8 @@ package com.md.model;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "GROUP")
+
+@Entity(name = "GROUP")
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -27,11 +27,13 @@
         <property name="password" value="${jdbc.password}" />
     </bean>
 
-    <!-- initialize Embedded DataSource. Встроенная база данных-->
+<!--
+    &lt;!&ndash; initialize Embedded DataSource. Встроенная база данных&ndash;&gt;
     <jdbc:initialize-database data-source="dataSource">
         <jdbc:script location="classpath:dbschema.sql"/>
-        <!--<jdbc:script location="classpath:test-data.sql"/>-->
+        &lt;!&ndash;<jdbc:script location="classpath:test-data.sql"/>&ndash;&gt;
     </jdbc:initialize-database>
+-->
 
 
     <!-- REST template configuration -->
@@ -56,10 +58,10 @@
         </property>
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">false</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
             </props>
         </property>
     </bean>
