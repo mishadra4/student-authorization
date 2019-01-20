@@ -27,7 +27,7 @@ public class GroupServiceImpl implements GroupService {
 
         Group KN311 = new Group();
         KN311.setCourseNumber(3);
-        KN311.setName("KH-310");
+        KN311.setName("KH-311");
         KN311.setStudents(createStudents());
 
         groups.add(KN310);

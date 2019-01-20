@@ -1,6 +1,5 @@
 package com.md.controller;
 
-import com.md.model.Group;
 import com.md.model.Lecture;
 import com.md.model.Lecturer;
 import com.md.service.GroupService;
@@ -8,17 +7,13 @@ import com.md.service.LectureService;
 import com.md.service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.orm.hibernate3.SpringSessionContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class LectureController {
@@ -62,6 +57,17 @@ public class LectureController {
         return lecture;
     }
 
+    @RequestMapping(value = "/createLab")
+    public ModelAndView createLabPage(Authentication authentication){
+        User user = (User) authentication.getPrincipal();
+        Lecturer lecturer = lecturerService.getLecturerByUsername(user.getUsername());
+        ModelAndView lecture = new ModelAndView("/form/createLab");
+        lecture.addObject("groups", groupService.getAllGroups());
+        lecture.addObject("lecturer", lecturer);
+
+        return lecture;
+    }
+
     @RequestMapping(value = "/createLecture", method = RequestMethod.POST)
     public ModelAndView createLecture(Lecture lecture, Authentication authentication){
         ModelAndView lectureView = new ModelAndView("/form/lecture");
@@ -76,11 +82,17 @@ public class LectureController {
     }
 
     @RequestMapping(value = "/createLab", method = RequestMethod.POST)
-    public ModelAndView createLab(){
-        ModelAndView lab = new ModelAndView("/form/lecture");
+    public ModelAndView createLab(Lecture lab, Authentication authentication){
+        User user = (User) authentication.getPrincipal();
+        ModelAndView lectureView = new ModelAndView("/form/lecture");
+        Lecturer lecturer = lecturerService.getLecturerByUsername(user.getUsername());
+        lab.setLecturer(lecturer);
+        lab.setGroups(groupService.getAllGroups());
+        lectureView.addObject("lecture", lab);
+        lectureView.addObject("present", true);
 
-
-        return lab;
+        lectureService.saveLecture(lab);
+        return lectureView;
     }
 
     public ApplicationContext getContext() {

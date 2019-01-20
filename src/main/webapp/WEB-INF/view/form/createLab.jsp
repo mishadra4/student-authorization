@@ -5,7 +5,7 @@
 
 <page:template>
     <jsp:body>
-
+        <c:forEach var="group" items="groups"/>
         <div class="form-lecture">
             <form action="/createLecture" method="post" datatype="lecture">
 
@@ -19,12 +19,6 @@
 
                 <label for="inputLectureOrdinalNumber" class="sr-only" ><spring:message code="form.lecture.ordinal.number"/></label>
                 <input id="inputLectureOrdinalNumber" class="form-control-lecture" name="ordinalNumber" required placeholder="<spring:message code="form.lecture.ordinal.number"/>"/>
-
-                <label>Виберіть необхідні групи</label>
-                <c:forEach var="group" items="${groups}">
-                    <label>${group.name}</label>
-                    <input type="checkbox" name="${group.name}" />
-                </c:forEach>
 
                 <input type="submit" value="<spring:message code="form.save.title"/>" class="btn btn-lg btn-primary btn-block" >
             </form>
