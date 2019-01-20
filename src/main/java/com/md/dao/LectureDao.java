@@ -6,4 +6,6 @@ public interface LectureDao {
     void createLecture();
 
     Lecture getLecture(Integer id);
+
+    void saveLecture(Lecture lecture);
 }

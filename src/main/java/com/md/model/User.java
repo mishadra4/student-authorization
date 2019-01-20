@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 
 @Component
 @Table(name = "USER")
+@Scope("session")
 public class User {
 
     @Id

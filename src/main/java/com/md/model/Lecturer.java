@@ -12,6 +12,10 @@ public class Lecturer extends User {
     @Column(name = "lecturer_id")
     private Integer id;
 
+    private String firstName;
+
+    private String lastName;
+
     @OneToMany(mappedBy = "lecturer")
     private List<Subject> subjects;
 
@@ -40,5 +44,21 @@ public class Lecturer extends User {
 
     public void setLectures(List<Lecture> lectures) {
         this.lectures = lectures;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

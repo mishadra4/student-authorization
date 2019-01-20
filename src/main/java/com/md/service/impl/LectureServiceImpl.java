@@ -17,6 +17,11 @@ public class LectureServiceImpl implements LectureService {
         return lectureDao.getLecture(id);
     }
 
+    @Override
+    public void saveLecture(Lecture lecture) {
+        lectureDao.saveLecture(lecture);
+    }
+
     public LectureDao getLectureDao() {
         return lectureDao;
     }

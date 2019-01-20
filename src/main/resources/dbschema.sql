@@ -14,11 +14,11 @@ USE `student_authorization` ;
 -- Table `student_authorization`.`user`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `student_authorization`.`user` (
-  `student_id` INT NOT NULL,
+  `student_id` INT,
   `username` VARCHAR(45) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
-  `first_name` VARCHAR(45) NOT NULL,
-  `last_name` VARCHAR(45) NOT NULL,
+  `first_name` VARCHAR(45),
+  `last_name` VARCHAR(45),
   `enabled` TINYINT NULL,
   PRIMARY KEY (`username`))
 ENGINE = InnoDB;
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `student_authorization`.`lecture` (
   PRIMARY KEY (`lecture_id`, `lecturer_id`))
 ENGINE = InnoDB;
 
-
+/*
 -- -----------------------------------------------------
 -- Table `mydb`.`lecturer`
 -- -----------------------------------------------------
@@ -139,6 +139,7 @@ CREATE TABLE IF NOT EXISTS `student_authorization`.`subject_has_student` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+*/
 
 
 -- -----------------------------------------------------
@@ -149,7 +150,6 @@ CREATE TABLE IF NOT EXISTS `student_authorization`.`authorities` (
   `authority` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`username`))
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `student_authorization`.`authorities_has_user`

@@ -27,13 +27,11 @@
         <property name="password" value="${jdbc.password}" />
     </bean>
 
-<!--
-    &lt;!&ndash; initialize Embedded DataSource. Встроенная база данных&ndash;&gt;
+
     <jdbc:initialize-database data-source="dataSource">
         <jdbc:script location="classpath:dbschema.sql"/>
-        &lt;!&ndash;<jdbc:script location="classpath:test-data.sql"/>&ndash;&gt;
+        <jdbc:script location="classpath:test-data.sql"/>
     </jdbc:initialize-database>
--->
 
 
     <!-- REST template configuration -->

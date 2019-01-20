@@ -2,10 +2,12 @@ package com.md.service.impl;
 
 import com.md.dao.GroupDao;
 import com.md.model.Group;
+import com.md.model.Student;
 import com.md.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,7 +18,37 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public List<Group> getAllGroups() {
-        return null;
+        List<Group> groups = new ArrayList<>();
+
+        Group KN310 = new Group();
+        KN310.setCourseNumber(3);
+        KN310.setName("KH-310");
+        KN310.setStudents(createStudents());
+
+        Group KN311 = new Group();
+        KN311.setCourseNumber(3);
+        KN311.setName("KH-310");
+        KN311.setStudents(createStudents());
+
+        groups.add(KN310);
+        groups.add(KN311);
+
+        return groups;
+    }
+
+    private List<Student> createStudents(){
+        List<Student> students = new ArrayList<>();
+        Student student1 = new Student();
+        student1.setFirstName("Mykhailo");
+        student1.setLastName("Drach");
+
+        Student student2 = new Student();
+        student1.setFirstName("Mykhailo");
+        student1.setLastName("Drach2");
+
+        students.add(student1);
+        students.add(student2);
+        return students;
     }
 
     public GroupDao getGroupDao() {

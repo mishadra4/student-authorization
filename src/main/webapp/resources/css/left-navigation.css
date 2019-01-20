@@ -160,6 +160,31 @@ body {
     padding-left: 20%;
 }
 
+span {
+
+    float: left;
+    clear: left;
+}
+
+.form-lecture {
+    padding: 3% 15px 15px;
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+.form-control-lecture {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 5px;
+}
+
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;

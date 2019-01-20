@@ -35,4 +35,9 @@ public class LectureDaoImpl implements LectureDao {
         lecture.setLectureId(1);
         return lecture;
     }
+
+    @Override
+    public void saveLecture(Lecture lecture) {
+
+    }
 }

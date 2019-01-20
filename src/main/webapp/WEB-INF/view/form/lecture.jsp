@@ -61,13 +61,15 @@
                         <th>Student`s Group</th>
                         <th>Lecture presence</th>
                     </tr>
-                    <c:forEach items="${lecture.students}" var="student">
-                        <tr>
-                            <td>${student.firstName}</td>
-                            <td>${student.lastName}</td>
-                            <td>${student.group}</td>
-                            <td><form:checkbox path="present" value="${present}"/></td>
-                        </tr>
+                    <c:forEach items="${lecture.groups}" var="group">
+                        <c:forEach items="${group.students}" var="student">
+                            <tr>
+                                <td>${student.firstName}</td>
+                                <td>${student.lastName}</td>
+                                <td>${group.name}</td>
+                                <td><form:checkbox path="present" value="${present}"/></td>
+                            </tr>
+                        </c:forEach>
                     </c:forEach>
                 </table>
             </div>
