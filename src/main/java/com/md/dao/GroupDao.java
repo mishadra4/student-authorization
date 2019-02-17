@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface GroupDao {
 
+    void save(Group group);
+
     List<Group> getAllGroups();
 
     Group getGroup(String name);

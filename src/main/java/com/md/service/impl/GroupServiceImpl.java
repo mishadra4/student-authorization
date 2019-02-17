@@ -59,6 +59,16 @@ public class GroupServiceImpl implements GroupService {
         return students;
     }
 
+    @Override
+    public void save(Group group) {
+        getGroupDao().save(group);
+    }
+
+    @Override
+    public void saveAll(List<Group> groups) {
+        groups.forEach(this::save);
+    }
+
     public GroupDao getGroupDao() {
         return groupDao;
     }

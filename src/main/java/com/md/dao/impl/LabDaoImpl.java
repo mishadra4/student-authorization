@@ -42,6 +42,10 @@ public class LabDaoImpl implements LabDao {
 
     @Override
     public void saveLab(Lab lab) {
+        entityManager.persist(lab);
+    }
 
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 }

@@ -5,7 +5,7 @@
 -- -----------------------------------------------------
 -- Schema student_authorization
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `student_authorization`;
+--DROP SCHEMA IF EXISTS `student_authorization`;
 
 CREATE SCHEMA IF NOT EXISTS `student_authorization` DEFAULT CHARACTER SET utf8 ;
 USE `student_authorization` ;
@@ -26,34 +26,33 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`lecture`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`lecture` ;
+--DROP TABLE IF EXISTS `student_authorization`.`lecture` ;
 
 CREATE TABLE IF NOT EXISTS `student_authorization`.`lecture` (
   `lecture_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `description` VARCHAR(255) NULL,
   `ordinal_number` INT NULL,
-  `lecturer_id` INT NOT NULL,
-  PRIMARY KEY (`lecture_id`, `lecturer_id`))
+  `lecturer_id` INT NULL,
+  PRIMARY KEY (`lecture_id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `mydb`.`lecturer`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `student_authorization`.`lecturer` ;
+--DROP TABLE IF EXISTS `student_authorization`.`lecturer` ;
 
 CREATE TABLE IF NOT EXISTS `student_authorization`.`lecturer` (
-  `lecturer_id` INT NOT NULL AUTO_INCREMENT,
+  `lecturer_id` INT NULL,
+  `username` VARCHAR(45) NOT NULL,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
-  `lecture_id` INT NOT NULL,
-  `lecture_lecturer_id` INT NOT NULL,
-  PRIMARY KEY (`lecturer_id`, `lecture_id`, `lecture_lecturer_id`),
-  INDEX `fk_lecturer_lecture1_idx` (`lecture_id` ASC, `lecture_lecturer_id` ASC) VISIBLE,
+  `lecture_id` INT NULL,
+  PRIMARY KEY (`username`),
   CONSTRAINT `fk_lecturer_lecture1`
-    FOREIGN KEY (`lecture_id` , `lecture_lecturer_id`)
-    REFERENCES `student_authorization`.`lecture` (`lecture_id` , `lecturer_id`)
+    FOREIGN KEY (`lecture_id`)
+    REFERENCES `student_authorization`.`lecture` (`lecture_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -67,16 +66,14 @@ CREATE TABLE IF NOT EXISTS `student_authorization`.`subject` (
   `lecturer_id` INT NOT NULL,
   `lecture_id` INT NOT NULL,
   `lecture_lecturer_id` INT NOT NULL,
-  PRIMARY KEY (`subject_id`, `lecturer_id`, `lecture_id`, `lecture_lecturer_id`),
-  INDEX `fk_subject_lecturer_idx` (`lecturer_id` ASC),
-  INDEX `fk_subject_lecture1_idx` (`lecture_id` ASC, `lecture_lecturer_id` ASC),
+  PRIMARY KEY (`subject_id`, `lecturer_id`, `lecture_id`),
   CONSTRAINT `fk_subject_lecturer`
     FOREIGN KEY (`lecturer_id`)
     REFERENCES `student_authorization`.`lecturer` (`lecturer_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_subject_lecture1`
-    FOREIGN KEY (`lecture_id` , `lecture_lecturer_id`)
+    FOREIGN KEY (`lecture_id` , `lecturer_id`)
     REFERENCES `student_authorization`.`lecture` (`lecture_id` , `lecturer_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -92,7 +89,6 @@ CREATE TABLE IF NOT EXISTS `student_authorization`.`group` (
   `course` INT NULL,
   `lecturer_id` INT NOT NULL,
   PRIMARY KEY (`group_id`, `lecturer_id`),
-  INDEX `fk_group_lecturer1_idx` (`lecturer_id` ASC),
   CONSTRAINT `fk_group_lecturer1`
     FOREIGN KEY (`lecturer_id`)
     REFERENCES `student_authorization`.`lecturer` (`lecturer_id`)
@@ -126,8 +122,6 @@ CREATE TABLE IF NOT EXISTS `student_authorization`.`subject_has_student` (
   `subject_id` INT NOT NULL,
   `student_id` INT NOT NULL,
   PRIMARY KEY (`subject_id`, `student_id`),
-  INDEX `fk_subject_has_student_student1_idx` (`student_id` ASC),
-  INDEX `fk_subject_has_student_subject1_idx` (`subject_id` ASC),
   CONSTRAINT `fk_subject_has_student_subject1`
     FOREIGN KEY (`subject_id`)
     REFERENCES `student_authorization`.`subject` (`subject_id`)
@@ -158,8 +152,6 @@ CREATE TABLE IF NOT EXISTS `student_authorization`.`authorities_has_user` (
   `authorities_username` VARCHAR(255) NOT NULL,
   `user_username` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`authorities_username`, `user_username`),
-  INDEX `fk_authorities_has_user_user1_idx` (`user_username` ASC),
-  INDEX `fk_authorities_has_user_authorities1_idx` (`authorities_username` ASC),
   CONSTRAINT `fk_authorities_has_user_authorities1`
     FOREIGN KEY (`authorities_username`)
     REFERENCES `student_authorization`.`authorities` (`username`)

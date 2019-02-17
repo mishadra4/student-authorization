@@ -46,14 +46,14 @@ public class LectureController {
         User user = (User) authentication.getPrincipal();
         List<Lecture> lectures = lectureService.getLecture(user.getUsername());
 
-        lecture.addObject("lectures", lectures);
+            lecture.addObject("lectures", lectures);
 
         return lecture;
     }
 
     @RequestMapping(value = "/lecture/{id}", method = RequestMethod.GET)
     public ModelAndView getLectures(@PathVariable("id") Integer id){
-        ModelAndView lecture = new ModelAndView("/form/createLecture");
+        ModelAndView lecture = new ModelAndView("/form/lecture");
         lecture.addObject("lecture", lectureService.getLecture(id));
         lecture.addObject("present", Boolean.TRUE);
 
@@ -73,7 +73,7 @@ public class LectureController {
 
     @RequestMapping(value = "/createLecture", method = RequestMethod.POST)
     public ModelAndView createLecture(@ModelAttribute LectureDTO lecture, Authentication authentication){
-        ModelAndView lectureView = new ModelAndView("/form/lecture");
+        ModelAndView lectureView = new ModelAndView("/form/createLecture");
         User user = (User) authentication.getPrincipal();
         lecture.setLecturerUsername(user.getUsername());
 //        List<Group> groups = lecture.getGroups().stream()
@@ -81,6 +81,7 @@ public class LectureController {
         lectureView.addObject("lecture", lecture);
         lectureView.addObject("present", true);
 //        lectureView.addObject("groups", groups);
+
         lectureService.saveLecture(lectureConverter.convertToEntity(lecture));
         return lectureView;
     }

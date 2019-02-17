@@ -5,10 +5,10 @@ import java.util.List;
 
 
 @Entity(name = "lecturer")
-@Table(name = "LECTURER")
-public class Lecturer extends User {
+@Table(name = "lecturer")
+public class Lecturer {
 
-    @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "lecturer_id")
     private Integer id;
@@ -18,6 +18,10 @@ public class Lecturer extends User {
 
     @Column(name = "last_name")
     private String lastName;
+
+    @Id
+    @Column(name = "username")
+    private String username;
 
     @OneToMany(mappedBy = "lecturer")
     private List<Subject> subjects;
@@ -63,5 +67,13 @@ public class Lecturer extends User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

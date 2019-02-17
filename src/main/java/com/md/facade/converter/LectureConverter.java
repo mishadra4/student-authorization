@@ -45,7 +45,7 @@ public class LectureConverter implements GenericConverter<Lecture, LectureDTO> {
         dto.setOrdinalNumber(entity.getOrdinalNumber());
 //        dto.setGroups(entity.getGroups().stream()
 //                .map(Group::getName).collect(Collectors.toList()));
-        dto.setLecturerUsername(entity.getLecturer().getUsername());
+//        dto.setLecturerUsername(entity.getLecturer().getUsername());
 
         return dto;
     }

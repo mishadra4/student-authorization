@@ -9,4 +9,8 @@ public interface GroupService {
     List<Group> getAllGroups();
 
     Group getGroup(String name);
+
+    void save(Group group);
+
+    void saveAll(List<Group> groups);
 }

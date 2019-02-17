@@ -1,5 +1,6 @@
 package com.md.dao.impl;
 
+import com.md.model.Group;
 import com.md.model.Student;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,11 @@ public class StudentDaoImpl implements StudentDao {
 
     @PersistenceContext
     EntityManager entityManager;
+
+    @Override
+    public void save(Student student){
+        entityManager.persist(student);
+    }
 
     @Override
     public boolean enrollStudent(String username) {
@@ -57,5 +63,9 @@ public class StudentDaoImpl implements StudentDao {
         int result = query.executeUpdate();
 
         return result > 0;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 }

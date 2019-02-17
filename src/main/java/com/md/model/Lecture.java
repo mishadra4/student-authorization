@@ -4,8 +4,9 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-@Entity(name = "LECTURE")
-public class Lecture {
+@Entity(name = "lecture")
+@Table(name = "lecture")
+public class  Lecture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
