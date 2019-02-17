@@ -29,7 +29,7 @@
         <slf4j.version>1.7.13</slf4j.version>
 
         <!-- jackson json JSON Processing API -->
-        <jackson.databind-version>2.2.3</jackson.databind-version>
+        <jackson.databind-version>2.5.3</jackson.databind-version>
 
         <!-- Hibernate / JPA -->
         <hibernate.version>5.0.1.Final</hibernate.version>
@@ -97,6 +97,12 @@
             <version>2.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
+
         <!-- Excel view -->
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -157,6 +163,26 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
             <version>${spring-framework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring-framework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-mongodb</artifactId>
+            <version>2.1.0.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-releasetrain</artifactId>
+            <version>Lovelace-M3</version>
+            <type>pom</type>
+            <scope>import</scope>
         </dependency>
 
         <!-- Spring MVC Mail Related Dependency -->
@@ -246,7 +272,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-csv</artifactId>
-            <version>2.5.3</version>
+            <version>${jackson.databind-version}</version>
         </dependency>
 
         <dependency>
@@ -254,9 +280,23 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.13</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>2.0.9.RELEASE</version>
+        </dependency>
     </dependencies>
 
-
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
     <build>
 
         <plugins>

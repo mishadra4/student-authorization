@@ -5,15 +5,18 @@ import java.util.List;
 
 
 @Entity(name = "lecturer")
+@Table(name = "LECTURER")
 public class Lecturer extends User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "lecturer_id")
     private Integer id;
 
+    @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
 
     @OneToMany(mappedBy = "lecturer")

@@ -22,7 +22,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <security:authorize access="hasAnyRole('ROLE_USER')" var="isUser"/>
+                <security:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_SUPER_USER')" var="isUser"/>
+                <security:authorize access="hasAnyRole('ROLE_USER')" var="isStudent"/>
                 <security:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_SUPER_USER')" var="isAdmin"/>
 
                 <c:if test="${not isUser}">
@@ -47,29 +48,29 @@
                     <li><a style="color: red;" href="<c:url value="/j_spring_security_logout"/>"><spring:message
                             code="navMenu.logout"/></a></li>
                 </c:if>
-
-                <c:url value="/about.html" var="about"/>
-                <li><a href="${about}"><spring:message code="navMenu.about"/></a></li>
-
+                <c:if test="${isAdmin}">
+                    <c:url value="/lecture.html" var="lecture"/>
+                    <li><a href="${lecture}"><spring:message code="navMenu.lectures"/></a></li>
+                </c:if>
                 <%--<c:if test="${isAdmin}">--%>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="navMenu.tutorial"/><b
-                                class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="/login.html">Загрузка файла PDF и Excel</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="angularIndex" class="dropdown-toggle" data-toggle="dropdown">
-                            <spring:message code="navMenu.angularjs"/><b class="caret"></b> </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#">Содержание тем AngularJS</a>
-                            </li>
-                        </ul>
-                    </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="navMenu.tutorial"/><b
+                            class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="/login.html">Загрузка файла PDF и Excel</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="angularIndex" class="dropdown-toggle" data-toggle="dropdown">
+                        <spring:message code="navMenu.angularjs"/><b class="caret"></b> </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#">Содержание тем AngularJS</a>
+                        </li>
+                    </ul>
+                </li>
                 <%--</c:if>--%>
             </ul>
         </div>

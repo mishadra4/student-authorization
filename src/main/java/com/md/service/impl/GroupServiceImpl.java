@@ -36,6 +36,14 @@ public class GroupServiceImpl implements GroupService {
         return groups;
     }
 
+    @Override
+    public Group getGroup(String name) {
+        Group group = groupDao.getGroup(name);
+        group.setStudents(createStudents());
+        group.getStudents().forEach(student -> student.setGroup(group));
+        return group;
+    }
+
     private List<Student> createStudents(){
         List<Student> students = new ArrayList<>();
         Student student1 = new Student();
@@ -43,8 +51,8 @@ public class GroupServiceImpl implements GroupService {
         student1.setLastName("Drach");
 
         Student student2 = new Student();
-        student1.setFirstName("Mykhailo");
-        student1.setLastName("Drach2");
+        student2.setFirstName("Mykhailo");
+        student2.setLastName("Drach2");
 
         students.add(student1);
         students.add(student2);

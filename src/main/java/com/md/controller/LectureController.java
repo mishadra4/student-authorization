@@ -1,5 +1,8 @@
 package com.md.controller;
 
+import com.md.DTO.LectureDTO;
+import com.md.facade.converter.LectureConverter;
+import com.md.model.Group;
 import com.md.model.Lecture;
 import com.md.model.Lecturer;
 import com.md.service.GroupService;
@@ -10,10 +13,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class LectureController {
@@ -30,9 +37,16 @@ public class LectureController {
     @Autowired
     private GroupService groupService;
 
-    @RequestMapping(value = "/lecture/", method = RequestMethod.GET)
-    public ModelAndView getLecture(){
+    @Autowired
+    private LectureConverter lectureConverter;
+
+    @RequestMapping(value = "/lecture", method = RequestMethod.GET)
+    public ModelAndView getLecture(Authentication authentication){
         ModelAndView lecture = new ModelAndView("/form/lecture");
+        User user = (User) authentication.getPrincipal();
+        List<Lecture> lectures = lectureService.getLecture(user.getUsername());
+
+        lecture.addObject("lectures", lectures);
 
         return lecture;
     }
@@ -53,45 +67,21 @@ public class LectureController {
         ModelAndView lecture = new ModelAndView("/form/createLecture");
         lecture.addObject("groups", groupService.getAllGroups());
         lecture.addObject("lecturer", lecturer);
-
-        return lecture;
-    }
-
-    @RequestMapping(value = "/createLab")
-    public ModelAndView createLabPage(Authentication authentication){
-        User user = (User) authentication.getPrincipal();
-        Lecturer lecturer = lecturerService.getLecturerByUsername(user.getUsername());
-        ModelAndView lecture = new ModelAndView("/form/createLab");
-        lecture.addObject("groups", groupService.getAllGroups());
-        lecture.addObject("lecturer", lecturer);
-
+        lecture.addObject("lecture", new Lecture());
         return lecture;
     }
 
     @RequestMapping(value = "/createLecture", method = RequestMethod.POST)
-    public ModelAndView createLecture(Lecture lecture, Authentication authentication){
+    public ModelAndView createLecture(@ModelAttribute LectureDTO lecture, Authentication authentication){
         ModelAndView lectureView = new ModelAndView("/form/lecture");
         User user = (User) authentication.getPrincipal();
-        Lecturer lecturer = lecturerService.getLecturerByUsername(user.getUsername());
-        lecture.setLecturer(lecturer);
-        lecture.setGroups(groupService.getAllGroups());
+        lecture.setLecturerUsername(user.getUsername());
+//        List<Group> groups = lecture.getGroups().stream()
+//                .map(groupService::getGroup).collect(Collectors.toList());
         lectureView.addObject("lecture", lecture);
         lectureView.addObject("present", true);
-        lectureService.saveLecture(lecture);
-        return lectureView;
-    }
-
-    @RequestMapping(value = "/createLab", method = RequestMethod.POST)
-    public ModelAndView createLab(Lecture lab, Authentication authentication){
-        User user = (User) authentication.getPrincipal();
-        ModelAndView lectureView = new ModelAndView("/form/lecture");
-        Lecturer lecturer = lecturerService.getLecturerByUsername(user.getUsername());
-        lab.setLecturer(lecturer);
-        lab.setGroups(groupService.getAllGroups());
-        lectureView.addObject("lecture", lab);
-        lectureView.addObject("present", true);
-
-        lectureService.saveLecture(lab);
+//        lectureView.addObject("groups", groups);
+        lectureService.saveLecture(lectureConverter.convertToEntity(lecture));
         return lectureView;
     }
 
@@ -117,5 +107,21 @@ public class LectureController {
 
     public void setGroupService(GroupService groupService) {
         this.groupService = groupService;
+    }
+
+    public LecturerService getLecturerService() {
+        return lecturerService;
+    }
+
+    public void setLecturerService(LecturerService lecturerService) {
+        this.lecturerService = lecturerService;
+    }
+
+    public LectureConverter getLectureConverter() {
+        return lectureConverter;
+    }
+
+    public void setLectureConverter(LectureConverter lectureConverter) {
+        this.lectureConverter = lectureConverter;
     }
 }

@@ -4,7 +4,8 @@
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:tx="http://www.springframework.org/schema/cache"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/mvc
@@ -14,7 +15,7 @@
 	   http://www.springframework.org/schema/jdbc
        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
        http://www.springframework.org/schema/task
-       http://www.springframework.org/schema/task/spring-task.xsd">
+       http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <!--find property file. See model id='dataSource' for example ${jdbc.hsqldb.driverClass}-->
     <context:property-placeholder location="classpath:util.properties" />
@@ -32,7 +33,6 @@
         <jdbc:script location="classpath:dbschema.sql"/>
         <jdbc:script location="classpath:test-data.sql"/>
     </jdbc:initialize-database>
-
 
     <!-- REST template configuration -->
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>

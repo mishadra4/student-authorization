@@ -4,10 +4,11 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "SUBJECT")
+@Table(name = "SUBJECT")
 public class Subject {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subject_id")
     private Integer id;
 

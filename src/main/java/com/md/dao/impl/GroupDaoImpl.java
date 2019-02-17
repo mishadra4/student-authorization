@@ -12,4 +12,11 @@ public class GroupDaoImpl implements GroupDao {
     public List<Group> getAllGroups() {
         return null;
     }
+
+    @Override
+    public Group getGroup(String name) {
+        Group group = new Group();
+        group.setName(name);
+        return group;
+    }
 }

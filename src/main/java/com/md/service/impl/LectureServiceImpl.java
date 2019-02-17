@@ -6,6 +6,8 @@ import com.md.service.LectureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LectureServiceImpl implements LectureService {
 
@@ -15,6 +17,11 @@ public class LectureServiceImpl implements LectureService {
     @Override
     public Lecture getLecture(Integer id) {
         return lectureDao.getLecture(id);
+    }
+
+    @Override
+    public List<Lecture> getLecture(String lecturerUsername) {
+        return lectureDao.getLectures(lecturerUsername);
     }
 
     @Override

@@ -1,16 +1,24 @@
 package com.md.model;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import java.util.List;
 
-@Entity(name = "LECTURE")
-public class Lecture {
+@Entity(name = "LAB")
+@Table(name = "LAB")
+public class Lab {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "lecture_id")
-    private Integer lectureId;
+    @Column(name = "lab_id")
+    private Integer labId;
 
     @Column(name = "NAME")
     @Size(min = 3, max = 45)
@@ -21,24 +29,21 @@ public class Lecture {
 
     @Column(name = "DESCRIPTION")
     private String description;
-/*
-    @ManyToMany
-    @JoinTable(
-            name = "lecture_group_mapping",
-            joinColumns = @JoinColumn(name = "lecture_id"),
-            inverseJoinColumns = @JoinColumn(name = "group_id"))*/
-//    private List<Group> groups;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "group_id")
+    private Group group;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "lecturer_id")
     private Lecturer lecturer;
 
-    public void setLectureId(Integer lectureId) {
-        this.lectureId = lectureId;
+    public Integer getLabId() {
+        return labId;
     }
 
-    public Integer getLectureId() {
-        return lectureId;
+    public void setLabId(Integer labId) {
+        this.labId = labId;
     }
 
     public String getName() {
@@ -65,13 +70,13 @@ public class Lecture {
         this.description = description;
     }
 
-//    public List<Group> getGroups() {
-//        return groups;
-//    }
-//
-//    public void setGroups(List<Group> groups) {
-//        this.groups = groups;
-//    }
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
 
     public Lecturer getLecturer() {
         return lecturer;
@@ -80,4 +85,5 @@ public class Lecture {
     public void setLecturer(Lecturer lecturer) {
         this.lecturer = lecturer;
     }
+
 }

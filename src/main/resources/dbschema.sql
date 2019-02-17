@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `student_authorization`.`lecture` (
   PRIMARY KEY (`lecture_id`, `lecturer_id`))
 ENGINE = InnoDB;
 
-/*
+
 -- -----------------------------------------------------
 -- Table `mydb`.`lecturer`
 -- -----------------------------------------------------
@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `student_authorization`.`subject_has_student` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-*/
+
 
 
 -- -----------------------------------------------------

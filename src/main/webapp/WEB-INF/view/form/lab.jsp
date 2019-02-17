@@ -25,8 +25,8 @@
                     </li>
                     <ul class="sub-menu collapse" id="products">
                         <c:forEach items="${lectures}" var="lecture">
-                            <li class="active"><a href="/lecture/${lecture.lectureId}"><spring:message
-                                    code="form.lectures.lab.title"/>${lecture.name}</a></li>
+                            <li class="active"><a href="/lecture/${lecture.id}"><spring:message
+                                    code="form.lectures.lab.title"/>${lecture.id}</a></li>
                         </c:forEach>
                     </ul>
 
@@ -56,7 +56,7 @@
                 </ul>
             </div>
         </div>
-        <c:if test="${not empty groups}">
+        <c:if test="${group != null}">
             <div class="students">
                 <table class="students-table">
                     <tr>
@@ -65,15 +65,13 @@
                         <th>Student`s Group</th>
                         <th>Lecture presence</th>
                     </tr>
-                    <c:forEach items="${groups}" var="group">
-                        <c:forEach items="${group.students}" var="student">
-                            <tr>
-                                <td>${student.firstName}</td>
-                                <td>${student.lastName}</td>
-                                <td>${group.name}</td>
-                                <td><form:checkbox path="present" value="${present}"/></td>
-                            </tr>
-                        </c:forEach>
+                    <c:forEach items="${group.students}" var="student">
+                        <tr>
+                            <td>${student.firstName}</td>
+                            <td>${student.lastName}</td>
+                            <td>${group.name}</td>
+                            <td><form:checkbox path="present" value="${present}"/></td>
+                        </tr>
                     </c:forEach>
                 </table>
             </div>

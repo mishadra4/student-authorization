@@ -5,11 +5,12 @@ import com.md.model.Group;
 import com.md.model.Student;
 import org.springframework.stereotype.Repository;
 import com.md.model.Lecture;
-import org.springframework.util.CollectionUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Collections;
+import java.util.List;
 
 @Repository
 public class LectureDaoImpl implements LectureDao {
@@ -30,14 +31,20 @@ public class LectureDaoImpl implements LectureDao {
         student.setFirstName("Mykhailo");
         student.setLastName("Drach");
         student.setGroup(new Group());
-        student.setPresent(false);
         Lecture lecture = new Lecture();
         lecture.setLectureId(1);
+        lecture.setName("Lecture 1");
         return lecture;
     }
 
     @Override
-    public void saveLecture(Lecture lecture) {
+    public List<Lecture> getLectures(String lecturerUsername) {
+        return Collections.singletonList(getLecture(1));
+    }
 
+    @Transactional
+    @Override
+    public void saveLecture(Lecture lecture) {
+        entityManager.persist(lecture);
     }
 }

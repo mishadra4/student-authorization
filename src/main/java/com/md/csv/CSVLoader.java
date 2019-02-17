@@ -6,11 +6,15 @@ import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.md.model.Student;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
+
+@Component
 public class CSVLoader {
     private static Logger LOG = LoggerFactory.getLogger(CSVLoader.class);
 

@@ -19,7 +19,6 @@ import java.util.List;
 @Controller
 public class SecurityController {
 
-    @Autowired
     private StudentDao studentDao;
 
     @Autowired
@@ -40,12 +39,10 @@ public class SecurityController {
         for (Student student :
                 students) {
             System.out.println("Student username: " + student.getUsername());
-            System.out.println("Student lecture: " + student.getLectureID());
             System.out.println();
         }
 
         System.out.println(studentDao.getStudent(user.getUsername()).getUsername());
-        System.out.println(studentDao.getStudent(user.getUsername()).getLectureID());
         return new ModelAndView("form/success");
     }
 

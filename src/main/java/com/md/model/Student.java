@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 
 @Entity(name = "STUDENT")
+@Table(name = "STUDENT")
 public class Student extends User {
 
     @Id
@@ -21,12 +22,6 @@ public class Student extends User {
     @NotEmpty
     @Column(name = "LAST_NAME")
     private String lastName;
-
-    @Column(name = "IS_PRESENT")
-    private boolean isPresent;
-
-    @Column(name = "ID_LECTURE")
-    private Integer lectureID;
 
     @ManyToOne
     private Group group;
@@ -45,22 +40,6 @@ public class Student extends User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Integer getLectureID() {
-        return lectureID;
-    }
-
-    public void setLectureID(Integer lectureID) {
-        this.lectureID = lectureID;
-    }
-
-    public boolean isPresent() {
-        return isPresent;
-    }
-
-    public void setPresent(boolean present) {
-        isPresent = present;
     }
 
     public Group getGroup() {
