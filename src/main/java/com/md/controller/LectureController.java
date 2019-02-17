@@ -76,12 +76,11 @@ public class LectureController {
         ModelAndView lectureView = new ModelAndView("/form/createLecture");
         User user = (User) authentication.getPrincipal();
         lecture.setLecturerUsername(user.getUsername());
-//        List<Group> groups = lecture.getGroups().stream()
-//                .map(groupService::getGroup).collect(Collectors.toList());
+        List<Group> groups = lecture.getGroups().stream()
+                .map(groupService::getGroup).collect(Collectors.toList());
         lectureView.addObject("lecture", lecture);
         lectureView.addObject("present", true);
-//        lectureView.addObject("groups", groups);
-
+        lectureView.addObject("groups", groups);
         lectureService.saveLecture(lectureConverter.convertToEntity(lecture));
         return lectureView;
     }
