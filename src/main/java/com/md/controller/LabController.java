@@ -3,7 +3,7 @@ package com.md.controller;
 
 import com.md.DTO.LabDTO;
 import com.md.facade.converter.LabConverter;
-import com.md.model.Group;
+import com.md.model.Groups;
 import com.md.model.Lab;
 import com.md.service.GroupService;
 import com.md.service.LabService;
@@ -39,10 +39,10 @@ public class LabController {
         ModelAndView lectureView = new ModelAndView("/form/lecture");
         User user = (User) authentication.getPrincipal();
         lab.setLecturerUsername(user.getUsername());
-        Group group = groupService.getGroup(lab.getGroupName());
+        Groups groups = groupService.getGroup(lab.getGroupName());
         lectureView.addObject("lab", lab);
         lectureView.addObject("present", true);
-        lectureView.addObject("group", group);
+        lectureView.addObject("group", groups);
         labService.saveLab(labConverter.convertToEntity(lab));
         return lectureView;
     }

@@ -1,6 +1,5 @@
 package com.md.service;
 
-import com.md.model.Group;
 import com.md.model.Student;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +13,7 @@ public interface StudentService {
     void save(Student student);
 
     void saveAll(List<Student> students);
+
+    Student getStudent(final String username);
 
 }

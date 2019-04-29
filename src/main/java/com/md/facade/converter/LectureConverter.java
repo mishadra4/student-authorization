@@ -1,7 +1,6 @@
 package com.md.facade.converter;
 
 import com.md.DTO.LectureDTO;
-import com.md.model.Group;
 import com.md.model.Lecture;
 import com.md.service.GroupService;
 import com.md.service.LecturerService;
@@ -29,9 +28,9 @@ public class LectureConverter implements GenericConverter<Lecture, LectureDTO> {
         lecture.setOrdinalNumber(dto.getOrdinalNumber());
         lecture.setDescription(dto.getDescription());
 
-//        lecture.setGroups(dto.getGroups().stream()
-//                .map(groupService::getGroup)
-//                .collect(Collectors.toList()));
+        lecture.setGroups(dto.getGroups().stream()
+                .map(groupService::getGroup)
+                .collect(Collectors.toList()));
 
         return lecture;
     }
@@ -44,7 +43,7 @@ public class LectureConverter implements GenericConverter<Lecture, LectureDTO> {
         dto.setName(entity.getName());
         dto.setOrdinalNumber(entity.getOrdinalNumber());
 //        dto.setGroups(entity.getGroups().stream()
-//                .map(Group::getName).collect(Collectors.toList()));
+//                .map(Groups::getName).collect(Collectors.toList()));
 //        dto.setLecturerUsername(entity.getLecturer().getUsername());
 
         return dto;

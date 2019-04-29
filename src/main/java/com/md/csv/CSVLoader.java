@@ -3,7 +3,7 @@ package com.md.csv;
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import com.md.model.Group;
+import com.md.model.Groups;
 import com.md.model.Lecturer;
 import com.md.model.Student;
 import com.md.model.Subject;
@@ -45,7 +45,7 @@ public class CSVLoader {
         return loadObjectList(Subject.class, file);
     }
 
-    public List<Group> getGroups(File file) {
-        return loadObjectList(Group.class, file);
+    public List<Groups> getGroups(File file) {
+        return loadObjectList(Groups.class, file);
     }
 }

@@ -27,8 +27,8 @@
                        placeholder="<spring:message code="form.lecture.ordinal.number"/>"/>
 
                 <label>Виберіть необхідні групи</label><br/>
-                <%--<label>${group.name}</label>--%>
-                <%--<form:checkboxes items="${groups}" path="groups"/>--%>
+                <%--<label>${groups.name}</label>--%>
+                <form:checkboxes items="${groups}" path="groups" />
 
                 <input type="submit" value="<spring:message code="form.save.title"/>"
                        class="btn btn-lg btn-primary btn-block">

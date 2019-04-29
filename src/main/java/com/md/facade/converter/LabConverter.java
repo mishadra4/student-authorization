@@ -26,7 +26,7 @@ public class LabConverter implements GenericConverter<Lab, LabDTO> {
         lecture.setOrdinalNumber(dto.getOrdinalNumber());
         lecture.setDescription(dto.getDescription());
 
-        lecture.setGroup(groupService.getGroup(dto.getGroupName()));
+        lecture.setGroups(groupService.getGroup(dto.getGroupName()));
 
         return lecture;
     }
@@ -38,7 +38,7 @@ public class LabConverter implements GenericConverter<Lab, LabDTO> {
         dto.setId(entity.getLabId());
         dto.setName(entity.getName());
         dto.setOrdinalNumber(entity.getOrdinalNumber());
-        dto.setGroupName(entity.getGroup().getName());
+        dto.setGroupName(entity.getGroups().getName());
         dto.setLecturerUsername(entity.getLecturer().getUsername());
         return dto;
     }

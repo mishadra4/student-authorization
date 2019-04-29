@@ -29,6 +29,11 @@ public class StudentsServiceImpl implements StudentService {
         students.forEach(this::save);
     }
 
+    @Override
+    public Student getStudent(String username) {
+        return studentDao.getStudent(username);
+    }
+
     public StudentDao getStudentDao() {
         return studentDao;
     }

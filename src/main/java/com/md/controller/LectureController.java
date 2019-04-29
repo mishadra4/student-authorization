@@ -2,7 +2,7 @@ package com.md.controller;
 
 import com.md.DTO.LectureDTO;
 import com.md.facade.converter.LectureConverter;
-import com.md.model.Group;
+import com.md.model.Groups;
 import com.md.model.Lecture;
 import com.md.model.Lecturer;
 import com.md.service.GroupService;
@@ -46,18 +46,22 @@ public class LectureController {
         User user = (User) authentication.getPrincipal();
         List<Lecture> lectures = lectureService.getLecture(user.getUsername());
 
-            lecture.addObject("lectures", lectures);
+        lecture.addObject("lectures", lectures);
 
         return lecture;
     }
 
     @RequestMapping(value = "/lecture/{id}", method = RequestMethod.GET)
-    public ModelAndView getLectures(@PathVariable("id") Integer id){
-        ModelAndView lecture = new ModelAndView("/form/lecture");
-        lecture.addObject("lecture", lectureService.getLecture(id));
-        lecture.addObject("present", Boolean.TRUE);
+    public ModelAndView getLectures(@PathVariable("id") Integer id, Authentication authentication){
+        User user = (User) authentication.getPrincipal();
+        ModelAndView lectureView = new ModelAndView("/form/lecture");
+        List<Lecture> lectures = lectureService.getLecture(user.getUsername());
+        Lecture lecture = lectureService.getLecture(id);
+        lectureView.addObject("lectures", lectures);
+        lectureView.addObject("groups", lecture.getGroups());
+        lectureView.addObject("lecture", lecture);
 
-        return lecture;
+        return lectureView;
     }
 
     @RequestMapping(value = "/createLecture")
@@ -67,22 +71,23 @@ public class LectureController {
         ModelAndView lecture = new ModelAndView("/form/createLecture");
         lecture.addObject("groups", groupService.getAllGroups());
         lecture.addObject("lecturer", lecturer);
-        lecture.addObject("lecture", new Lecture());
+        lecture.addObject("lecture", new LectureDTO());
         return lecture;
     }
 
     @RequestMapping(value = "/createLecture", method = RequestMethod.POST)
     public ModelAndView createLecture(@ModelAttribute LectureDTO lecture, Authentication authentication){
-        ModelAndView lectureView = new ModelAndView("/form/createLecture");
+        ModelAndView lectureView = new ModelAndView("/form/lecture");
         User user = (User) authentication.getPrincipal();
         lecture.setLecturerUsername(user.getUsername());
-        List<Group> groups = lecture.getGroups().stream()
+        List<Groups> groups = lecture.getGroups().stream()
                 .map(groupService::getGroup).collect(Collectors.toList());
         lectureView.addObject("lecture", lecture);
         lectureView.addObject("present", true);
         lectureView.addObject("groups", groups);
         lectureService.saveLecture(lectureConverter.convertToEntity(lecture));
-        return lectureView;
+
+        return getLectures(lecture.getId(), authentication);
     }
 
     public ApplicationContext getContext() {

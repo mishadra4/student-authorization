@@ -1,7 +1,7 @@
 package com.md.dao.impl;
 
 import com.md.dao.LectureDao;
-import com.md.model.Group;
+import com.md.model.Groups;
 import com.md.model.Lecture;
 import com.md.model.Student;
 import org.springframework.stereotype.Repository;
@@ -27,14 +27,10 @@ public class LectureDaoImpl implements LectureDao {
 
     @Override
     public Lecture getLecture(Integer id) {
-        Student student = new Student();
-        student.setFirstName("Mykhailo");
-        student.setLastName("Drach");
-        student.setGroup(new Group());
-        Lecture lecture = new Lecture();
-        lecture.setLectureId(1);
-        lecture.setName("Lecture 1");
-        return lecture;
+        String query= "from lecture where lectureId = ?";
+        TypedQuery<Lecture> typedQuery = entityManager.createQuery(query, Lecture.class);
+        typedQuery.setParameter(1, id);
+        return typedQuery.getSingleResult();
     }
 
     @Override
@@ -45,7 +41,6 @@ public class LectureDaoImpl implements LectureDao {
         return typedQuery.getResultList();
     }
 
-    @Transactional
     @Override
     public void saveLecture(Lecture lecture) {
         entityManager.merge(lecture);

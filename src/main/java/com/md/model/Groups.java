@@ -4,22 +4,25 @@ import javax.persistence.*;
 import java.util.List;
 
 
-@Entity(name = "GROUP")
-@Table(name = "GROUP")
-public class Group {
+@Entity(name = "Groups")
+@Table(name = "group_")
+public class Groups {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "group_id")
     private Integer id;
 
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
-    @Column(name= "COURSE")
+    @Column(name= "course")
     private Integer courseNumber;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "groups", fetch = FetchType.EAGER)
     private List<Student> students;
+
+    @ManyToMany(mappedBy = "groups", fetch = FetchType.EAGER)
+    private List<Lecture> lectures;
 
     public Integer getId() {
         return id;
@@ -51,6 +54,14 @@ public class Group {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public List<Lecture> getLectures() {
+        return lectures;
+    }
+
+    public void setLectures(List<Lecture> lectures) {
+        this.lectures = lectures;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.md.dao.impl;
 
-import com.md.model.Group;
 import com.md.model.Student;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +40,7 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public Student getStudent(String username) {
-        String query= "from Student where username = ?";
+        String query= "from student as s join user as u on u.student_id = s.student_id where u.username = ?";
         TypedQuery<Student> typedQuery = entityManager.createQuery(query, Student.class);
         typedQuery.setParameter(1, username);
         return typedQuery.getSingleResult();

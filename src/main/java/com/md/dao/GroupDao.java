@@ -1,14 +1,14 @@
 package com.md.dao;
 
-import com.md.model.Group;
+import com.md.model.Groups;
 
 import java.util.List;
 
 public interface GroupDao {
 
-    void save(Group group);
+    void save(Groups groups);
 
-    List<Group> getAllGroups();
+    List<Groups> getAllGroups();
 
-    Group getGroup(String name);
+    Groups getGroup(String name);
 }

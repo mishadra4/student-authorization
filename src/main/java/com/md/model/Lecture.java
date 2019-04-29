@@ -13,26 +13,33 @@ public class  Lecture {
     @Column(name = "lecture_id")
     private Integer lectureId;
 
-    @Column(name = "NAME")
+    @Column(name = "name")
     @Size(min = 3, max = 45)
     private String name;
 
-    @Column(name = "ORDINAL_NUMBER")
+    @Column(name = "ordinal_number")
     private Integer ordinalNumber;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "description")
     private String description;
-/*
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "lecture_group_mapping",
             joinColumns = @JoinColumn(name = "lecture_id"),
-            inverseJoinColumns = @JoinColumn(name = "group_id"))*/
-//    private List<Group> groups;
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private List<Groups> groups;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "lecturer_id")
     private Lecturer lecturer;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "lecture_student_mapping",
+            joinColumns = @JoinColumn(name = "lecture_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private List<Student> students;
 
     public void setLectureId(Integer lectureId) {
         this.lectureId = lectureId;
@@ -66,13 +73,13 @@ public class  Lecture {
         this.description = description;
     }
 
-//    public List<Group> getGroups() {
-//        return groups;
-//    }
-//
-//    public void setGroups(List<Group> groups) {
-//        this.groups = groups;
-//    }
+    public List<Groups> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Groups> groups) {
+        this.groups = groups;
+    }
 
     public Lecturer getLecturer() {
         return lecturer;
@@ -80,5 +87,13 @@ public class  Lecture {
 
     public void setLecturer(Lecturer lecturer) {
         this.lecturer = lecturer;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

@@ -65,13 +65,13 @@
                         <th>Student`s Group</th>
                         <th>Lecture presence</th>
                     </tr>
-                    <c:forEach items="${groups}" var="group">
-                        <c:forEach items="${group.students}" var="student">
+                    <c:forEach items="${groups}" var="groups">
+                        <c:forEach items="${groups.students}" var="student">
                             <tr>
                                 <td>${student.firstName}</td>
                                 <td>${student.lastName}</td>
-                                <td>${group.name}</td>
-                                <td><form:checkbox path="present" value="${present}"/></td>
+                                <td>${groups.name}</td>
+                                <td><input type="checkbox" class="change-js" ${lecture.students.contains(student)?'checked':''} onchange="lectureComponent.enrollCheckbox()"/></td>
                             </tr>
                         </c:forEach>
                     </c:forEach>

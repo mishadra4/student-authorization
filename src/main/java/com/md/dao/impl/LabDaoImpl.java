@@ -1,9 +1,8 @@
 package com.md.dao.impl;
 
 import com.md.dao.LabDao;
-import com.md.model.Group;
+import com.md.model.Groups;
 import com.md.model.Lab;
-import com.md.model.Lecture;
 import com.md.model.Student;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +28,7 @@ public class LabDaoImpl implements LabDao {
         Student student = new Student();
         student.setFirstName("Mykhailo");
         student.setLastName("Drach");
-        student.setGroup(new Group());
+        student.setGroups(new Groups());
         Lab lab = new Lab();
         lab.setLabId(1);
         return lab;

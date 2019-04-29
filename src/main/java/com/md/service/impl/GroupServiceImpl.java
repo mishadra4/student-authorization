@@ -1,7 +1,7 @@
 package com.md.service.impl;
 
 import com.md.dao.GroupDao;
-import com.md.model.Group;
+import com.md.model.Groups;
 import com.md.model.Student;
 import com.md.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,31 +17,13 @@ public class GroupServiceImpl implements GroupService {
     private GroupDao groupDao;
 
     @Override
-    public List<Group> getAllGroups() {
-        List<Group> groups = new ArrayList<>();
-
-        Group KN310 = new Group();
-        KN310.setCourseNumber(3);
-        KN310.setName("KH-310");
-        KN310.setStudents(createStudents());
-
-        Group KN311 = new Group();
-        KN311.setCourseNumber(3);
-        KN311.setName("KH-311");
-        KN311.setStudents(createStudents());
-
-        groups.add(KN310);
-        groups.add(KN311);
-
-        return groups;
+    public List<Groups> getAllGroups() {
+        return groupDao.getAllGroups();
     }
 
     @Override
-    public Group getGroup(String name) {
-        Group group = groupDao.getGroup(name);
-        group.setStudents(createStudents());
-        group.getStudents().forEach(student -> student.setGroup(group));
-        return group;
+    public Groups getGroup(String name) {
+        return groupDao.getGroup(name);
     }
 
     private List<Student> createStudents(){
@@ -60,12 +42,12 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void save(Group group) {
-        getGroupDao().save(group);
+    public void save(Groups groups) {
+        getGroupDao().save(groups);
     }
 
     @Override
-    public void saveAll(List<Group> groups) {
+    public void saveAll(List<Groups> groups) {
         groups.forEach(this::save);
     }
 

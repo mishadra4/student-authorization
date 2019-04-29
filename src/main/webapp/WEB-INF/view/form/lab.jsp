@@ -56,7 +56,7 @@
                 </ul>
             </div>
         </div>
-        <c:if test="${group != null}">
+        <c:if test="${groups != null}">
             <div class="students">
                 <table class="students-table">
                     <tr>
@@ -65,11 +65,11 @@
                         <th>Student`s Group</th>
                         <th>Lecture presence</th>
                     </tr>
-                    <c:forEach items="${group.students}" var="student">
+                    <c:forEach items="${groups.students}" var="student">
                         <tr>
                             <td>${student.firstName}</td>
                             <td>${student.lastName}</td>
-                            <td>${group.name}</td>
+                            <td>${groups.name}</td>
                             <td><form:checkbox path="present" value="${present}"/></td>
                         </tr>
                     </c:forEach>

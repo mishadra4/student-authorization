@@ -32,7 +32,7 @@ public class Lab {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "group_id")
-    private Group group;
+    private Groups groups;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "lecturer_id")
@@ -70,12 +70,12 @@ public class Lab {
         this.description = description;
     }
 
-    public Group getGroup() {
-        return group;
+    public Groups getGroups() {
+        return groups;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setGroups(Groups groups) {
+        this.groups = groups;
     }
 
     public Lecturer getLecturer() {

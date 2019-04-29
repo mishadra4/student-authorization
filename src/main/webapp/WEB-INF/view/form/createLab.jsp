@@ -25,7 +25,7 @@
                        placeholder="<spring:message code="form.lab.ordinal.number"/>"/>
 
                 <label>Виберіть необхідну групу</label><br/>
-                <%--<label>${group.name}</label>--%>
+                <%--<label>${groups.name}</label>--%>
                 <form:radiobuttons items="${groups}" path="groupName"/>
 
                 <input type="submit" value="<spring:message code="form.save.title"/>"

@@ -1,16 +1,16 @@
 package com.md.service;
 
-import com.md.model.Group;
+import com.md.model.Groups;
 
 import java.util.List;
 
 public interface GroupService {
 
-    List<Group> getAllGroups();
+    List<Groups> getAllGroups();
 
-    Group getGroup(String name);
+    Groups getGroup(String name);
 
-    void save(Group group);
+    void save(Groups groups);
 
-    void saveAll(List<Group> groups);
+    void saveAll(List<Groups> groups);
 }

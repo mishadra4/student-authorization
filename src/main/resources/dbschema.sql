@@ -81,9 +81,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `student_authorization`.`group`
+-- Table `student_authorization`.`groups`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `student_authorization`.`group` (
+CREATE TABLE IF NOT EXISTS `student_authorization`.`groups` (
   `group_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `course` INT NULL,
@@ -104,12 +104,12 @@ CREATE TABLE IF NOT EXISTS `student_authorization`.`student` (
   `student_id` INT NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
-  `group_id` INT NOT NULL,
+  `group_group_id` INT NOT NULL,
   PRIMARY KEY (`student_id`, `group_id`),
   INDEX `fk_student_group1_idx` (`group_id` ASC),
   CONSTRAINT `fk_student_group1`
-    FOREIGN KEY (`group_id`)
-    REFERENCES `student_authorization`.`group` (`group_id`)
+    FOREIGN KEY (`group_group_id`)
+    REFERENCES `student_authorization`.`groups` (`group_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -160,6 +160,42 @@ CREATE TABLE IF NOT EXISTS `student_authorization`.`authorities_has_user` (
   CONSTRAINT `fk_authorities_has_user_user1`
     FOREIGN KEY (`user_username`)
     REFERENCES `student_authorization`.`user` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `student_authorization`.`lecture_group_mapping`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `student_authorization`.`lecture_group_mapping` (
+  `lecture_id` INT NOT NULL,
+  `group_id` INT NOT NULL,
+  PRIMARY KEY (`lecture_id`, `group_id`),
+  CONSTRAINT `fk_lecture_group_mapping_lecture`
+    FOREIGN KEY (`lecture_id`)
+    REFERENCES `student_authorization`.`lecture` (`lecture_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lecture_group_mapping_group`
+    FOREIGN KEY (`group_id`)
+    REFERENCES `student_authorization`.`groups` (`group_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `student_authorization`.`lecture_student_mapping` (
+  `lecture_id` INT NOT NULL,
+  `student_id` INT NOT NULL,
+  PRIMARY KEY (`lecture_id`, `student_id`),
+  CONSTRAINT `fk_lecture_student_mapping_lecture`
+    FOREIGN KEY (`lecture_id`)
+    REFERENCES `student_authorization`.`lecture` (`lecture_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_lecture_student_mapping_student`
+    FOREIGN KEY (`student_id`)
+    REFERENCES `student_authorization`.`student` (`student_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
