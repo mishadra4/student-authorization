@@ -6,24 +6,9 @@ import java.util.List;
 
 @Entity(name = "lecturer")
 @Table(name = "lecturer")
-public class Lecturer {
+public class Lecturer extends User {
 
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "lecturer_id")
-    private Integer id;
-
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Id
-    @Column(name = "username")
-    private String username;
-
-    @OneToMany(mappedBy = "lecturer")
+    @OneToMany(mappedBy = "lecturer", fetch = FetchType.EAGER)
     private List<Subject> subjects;
 
     @OneToMany(mappedBy = "lecturer")
@@ -37,13 +22,6 @@ public class Lecturer {
         this.subjects = subjects;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public List<Lecture> getLectures() {
         return lectures;
@@ -53,27 +31,4 @@ public class Lecturer {
         this.lectures = lectures;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }

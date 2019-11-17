@@ -3,6 +3,7 @@ package com.md.dao.impl;
 import com.md.dao.GroupDao;
 import com.md.model.Groups;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,6 +11,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
+@Transactional
 public class GroupDaoImpl implements GroupDao {
 
     @PersistenceContext

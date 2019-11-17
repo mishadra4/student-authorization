@@ -20,7 +20,7 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public void save(Student student){
-        entityManager.persist(student);
+        entityManager.merge(student);
     }
 
     @Override
@@ -40,10 +40,13 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public Student getStudent(String username) {
-        String query= "from student as s join user as u on u.student_id = s.student_id where u.username = ?";
+        String query= "from student where username = ?";
         TypedQuery<Student> typedQuery = entityManager.createQuery(query, Student.class);
         typedQuery.setParameter(1, username);
-        return typedQuery.getSingleResult();
+        return typedQuery.getResultList()
+                .stream()
+                .findFirst()
+                .orElse(null);
     }
 
     @Override

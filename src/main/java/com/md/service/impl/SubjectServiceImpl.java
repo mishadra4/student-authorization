@@ -20,6 +20,16 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
+    public Subject getSubject(int id) {
+        return subjectDao.getSubject(id);
+    }
+
+    @Override
+    public Subject getSubject(String name) {
+        return subjectDao.getSubject(name);
+    }
+
+    @Override
     public void saveAll(List<Subject> subjects) {
         subjects.forEach(this::save);
     }

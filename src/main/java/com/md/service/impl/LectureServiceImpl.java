@@ -35,6 +35,13 @@ public class LectureServiceImpl implements LectureService {
     }
 
     @Override
+    public void unEnrollStudent(int lectureId, Student student) {
+        final Lecture lecture = getLecture(lectureId);
+        lecture.getStudents().remove(student);
+        saveLecture(lecture);
+    }
+
+    @Override
     public void saveLecture(Lecture lecture) {
         lectureDao.saveLecture(lecture);
     }

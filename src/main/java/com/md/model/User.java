@@ -2,39 +2,44 @@ package com.md.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-@Component
+@Entity
 @Table(name = "USER")
 @Scope("session")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="user_type")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IDUSER")
-    private int idUser;
-
     @NotEmpty
     @Size(min = 5, max = 20)
     @Column(name = "USERNAME")
     private String username;
 
-    @Column(name="PASSWORD")
+    @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name="ENABLED")
+    @Column(name = "ENABLED")
     private boolean enabled;
 
-    public int getIdUser() {
-        return idUser;
-    }
+    @NotEmpty
+    @Column(name = "FIRST_NAME")
+    private String firstName;
 
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
+    @NotEmpty
+    @Column(name = "LAST_NAME")
+    private String lastName;
 
     public String getUsername() {
         return username;
@@ -60,10 +65,25 @@ public class User {
         this.enabled = enabled;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "idUser=" + idUser +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +

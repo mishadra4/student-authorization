@@ -15,4 +15,6 @@ public interface LectureService {
     void saveLecture(Lecture lecture);
 
     void enrollStudent(final int lectureId, final Student student);
+
+    void unEnrollStudent(int lectureId, Student student);
 }

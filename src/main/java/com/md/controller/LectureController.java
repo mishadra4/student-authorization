@@ -2,12 +2,17 @@ package com.md.controller;
 
 import com.md.DTO.LectureDTO;
 import com.md.facade.converter.LectureConverter;
+import com.md.facade.dto.LectureData;
+import com.md.facade.dto.StudentData;
 import com.md.model.Groups;
 import com.md.model.Lecture;
 import com.md.model.Lecturer;
+import com.md.model.Student;
+import com.md.model.Subject;
 import com.md.service.GroupService;
 import com.md.service.LectureService;
 import com.md.service.LecturerService;
+import com.md.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
@@ -19,8 +24,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.apache.commons.lang.StringUtils.isEmpty;
 
 @Controller
 public class LectureController {
@@ -40,43 +50,45 @@ public class LectureController {
     @Autowired
     private LectureConverter lectureConverter;
 
-    @RequestMapping(value = "/lecture", method = RequestMethod.GET)
-    public ModelAndView getLecture(Authentication authentication){
+    @Autowired
+    private SubjectService subjectService;
+
+    @RequestMapping(value = "/subject/{subjectId}/lecture", method = RequestMethod.GET)
+    public ModelAndView getLecture(final Authentication authentication, @PathVariable final int subjectId) {
         ModelAndView lecture = new ModelAndView("/form/lecture");
         User user = (User) authentication.getPrincipal();
-        List<Lecture> lectures = lectureService.getLecture(user.getUsername());
-
-        lecture.addObject("lectures", lectures);
+        Lecturer lecturer = lecturerService.getLecturerByUsername(user.getUsername());
+        Subject subject = subjectService.getSubject(subjectId);
+        lecture.addObject("subjects", lecturer.getSubjects());
+        lecture.addObject("lectures", subject.getLectures());
+        lecture.addObject("subject", subject);
 
         return lecture;
     }
 
     @RequestMapping(value = "/lecture/{id}", method = RequestMethod.GET)
-    public ModelAndView getLectures(@PathVariable("id") Integer id, Authentication authentication){
+    public ModelAndView getLectures(@PathVariable("id") Integer id, Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         ModelAndView lectureView = new ModelAndView("/form/lecture");
-        List<Lecture> lectures = lectureService.getLecture(user.getUsername());
-        Lecture lecture = lectureService.getLecture(id);
-        lectureView.addObject("lectures", lectures);
-        lectureView.addObject("groups", lecture.getGroups());
-        lectureView.addObject("lecture", lecture);
-
+        populateLecture(id, lectureView, user.getUsername());
         return lectureView;
     }
 
-    @RequestMapping(value = "/createLecture")
-    public ModelAndView createLecturePage(Authentication authentication){
+    @RequestMapping(value = "/subject/{subjectId}/createLecture")
+    public ModelAndView createLecturePage(final Authentication authentication, @PathVariable final int subjectId) {
         User user = (User) authentication.getPrincipal();
+        final Subject subject = subjectService.getSubject(subjectId);
         Lecturer lecturer = lecturerService.getLecturerByUsername(user.getUsername());
         ModelAndView lecture = new ModelAndView("/form/createLecture");
         lecture.addObject("groups", groupService.getAllGroups());
         lecture.addObject("lecturer", lecturer);
         lecture.addObject("lecture", new LectureDTO());
+        lecture.addObject("subject", subject);
         return lecture;
     }
 
     @RequestMapping(value = "/createLecture", method = RequestMethod.POST)
-    public ModelAndView createLecture(@ModelAttribute LectureDTO lecture, Authentication authentication){
+    public ModelAndView createLecture(@ModelAttribute LectureDTO lecture, Authentication authentication) {
         ModelAndView lectureView = new ModelAndView("/form/lecture");
         User user = (User) authentication.getPrincipal();
         lecture.setLecturerUsername(user.getUsername());
@@ -88,6 +100,55 @@ public class LectureController {
         lectureService.saveLecture(lectureConverter.convertToEntity(lecture));
 
         return getLectures(lecture.getId(), authentication);
+    }
+
+    private void populateLecture(final int lectureId, final ModelAndView lectureView, final String username) {
+        LectureData lectureData = new LectureData();
+        List<Lecture> lectures = lectureService.getLecture(username);
+        Lecture lecture = lectureService.getLecture(lectureId);
+        createQrCode(lecture);
+        populateStudents(lecture, lectureData);
+        lectureView.addObject("lectures", lectures);
+        lectureView.addObject("groups", lecture.getGroups());
+        lectureView.addObject("lecture", lectureData);
+    }
+
+    private void createQrCode(Lecture lecture) {
+        if (isEmpty(lecture.getQrCodeFilepath())) {
+            try {
+                InetAddress inetAddress = InetAddress.getLocalHost();
+                final String lectureUrl = "http://" + inetAddress.getHostAddress() + ":8081/student/lecture/" + lecture.getLectureId() + "/enrollStudent";
+                lecture.setQrCodeFilepath(lectureUrl);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void populateStudents(final Lecture lecture, final LectureData lectureData) {
+        final List<Student> checkedStudents = lecture.getStudents();
+        final List<Student> allStudents = lecture.getGroups()
+                .stream()
+                .map(Groups::getStudents)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+        final List<StudentData> populatedStudents = allStudents
+                .stream()
+                .map(student -> populateStudent(student, checkedStudents))
+                .collect(Collectors.toList());
+        lectureData.setStudents(populatedStudents);
+        lectureData.setFilePath(lecture.getQrCodeFilepath());
+        lectureData.setLectureId(lecture.getLectureId());
+    }
+
+    private StudentData populateStudent(final Student student, final List<Student> checkedStudents) {
+        StudentData studentData = new StudentData();
+        studentData.setUsername(student.getUsername());
+        studentData.setFirstName(student.getFirstName());
+        studentData.setLastName(student.getLastName());
+        studentData.setChecked(checkedStudents.contains(student));
+        studentData.setGroupName(student.getGroups().getName());
+        return studentData;
     }
 
     public ApplicationContext getContext() {
@@ -129,4 +190,13 @@ public class LectureController {
     public void setLectureConverter(LectureConverter lectureConverter) {
         this.lectureConverter = lectureConverter;
     }
+
+    public SubjectService getSubjectService() {
+        return subjectService;
+    }
+
+    public void setSubjectService(SubjectService subjectService) {
+        this.subjectService = subjectService;
+    }
+
 }

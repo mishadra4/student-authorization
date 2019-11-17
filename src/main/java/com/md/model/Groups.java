@@ -24,6 +24,9 @@ public class Groups {
     @ManyToMany(mappedBy = "groups", fetch = FetchType.EAGER)
     private List<Lecture> lectures;
 
+    @ManyToMany(mappedBy = "groups", fetch = FetchType.EAGER)
+    private List<Subject> subjects;
+
     public Integer getId() {
         return id;
     }
@@ -62,6 +65,14 @@ public class Groups {
 
     public void setLectures(List<Lecture> lectures) {
         this.lectures = lectures;
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
     }
 
     @Override

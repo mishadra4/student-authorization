@@ -4,6 +4,8 @@
 <%@ taglib prefix="page" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<input type="hidden" id="lectureId" value="${lecture.lectureId}"/>
+<c:set var="lecture" value="${lecture}"/>
 <page:template>
     <jsp:body>
         <div class="nav-side-menu">
@@ -19,61 +21,81 @@
                         </a>
                     </li>
 
-                    <li data-toggle="collapse" data-target="#products" class="collapsed active">
-                        <a href="#"><i class="fa fa-gift fa-lg"></i> <spring:message code="form.lectures.title"/><span
+                    <li data-toggle="collapse" data-target="#subjects" class="collapsed active">
+                        <a href="#"><i class="fa fa-gift fa-lg"></i> <spring:message code="form.subjects.title"/><span
                                 class="arrow"></span></a>
                     </li>
-                    <ul class="sub-menu collapse" id="products">
-                        <c:forEach items="${lectures}" var="lecture">
-                            <li class="active"><a href="/lecture/${lecture.lectureId}"><spring:message
-                                    code="form.lectures.lab.title"/>${lecture.name}</a></li>
+                    <ul class="sub-menu collapse" id="subjects">
+                        <c:forEach items="${subjects}" var="subject">
+                            <li class="active"><a href="/subject/${subject.id}/lecture">${subject.name}</a></li>
                         </c:forEach>
                     </ul>
+                    <c:if test="${not empty subject}">
+                        <li data-toggle="collapse" data-target="#products" class="collapsed active">
+                            <a href="#"><i class="fa fa-gift fa-lg"></i> <spring:message
+                                    code="form.lectures.title"/><span
+                                    class="arrow"></span></a>
+                        </li>
+                        <ul class="sub-menu collapse" id="products">
+                            <c:forEach items="${lectures}" var="lecture">
+                                <li class="active"><a href="/lecture/${lecture.lectureId}">${lecture.name}</a></li>
+                            </c:forEach>
+                        </ul>
 
 
-                    <li data-toggle="collapse" data-target="#service" class="collapsed">
-                        <a href="#"><i class="fa fa-globe fa-lg"></i> <spring:message code="form.lectures.labs.title"/>
-                            <span class="arrow"></span></a>
-                    </li>
-                    <ul class="sub-menu collapse" id="service">
-                        <c:forEach items="${labs}" var="lab">
-                            <li><a href="/labs/${lab.id}"><spring:message code="form.lectures.lab.title"/>${lab.id} </a>
-                            </li>
-                        </c:forEach>
-                    </ul>
+                        <li data-toggle="collapse" data-target="#service" class="collapsed">
+                            <a href="#"><i class="fa fa-globe fa-lg"></i> <spring:message
+                                    code="form.lectures.labs.title"/>
+                                <span class="arrow"></span></a>
+                        </li>
+                        <ul class="sub-menu collapse" id="service">
+                            <c:forEach items="${labs}" var="lab">
+                                <li><a href="/labs/${lab.id}">${lab.name} </a>
+                                </li>
+                            </c:forEach>
+                        </ul>
 
-                    <li>
-                        <a href="/createLecture">
-                            <i class="fa fa-user fa-lg"></i> <spring:message code="form.lectures.create"/>
-                        </a>
-                    </li>
+                        <li>
+                            <a href="/subject/${subject.id}/createLecture">
+                                <i class="fa fa-user fa-lg"></i> <spring:message code="form.lectures.create"/>
+                            </a>
+                        </li>
 
-                    <li>
-                        <a href="/createLab">
-                            <i class="fa fa-users fa-lg"></i> <spring:message code="form.lectures.labs.create"/>
-                        </a>
-                    </li>
+                        <li>
+                            <a href="/createLab">
+                                <i class="fa fa-users fa-lg"></i> <spring:message code="form.lectures.labs.create"/>
+                            </a>
+                        </li>
+                    </c:if>
                 </ul>
             </div>
         </div>
         <c:if test="${not empty groups}">
             <div class="students">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${lecture.filePath}" width="400"
+                     height="400"/>
                 <table class="students-table">
                     <tr>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Student`s Group</th>
                         <th>Lecture presence</th>
+                        <th>Enroll/Unenroll Student</th>
                     </tr>
-                    <c:forEach items="${groups}" var="groups">
-                        <c:forEach items="${groups.students}" var="student">
+                    <c:forEach items="${lecture.students}" var="student">
+
+                        <form:form action="/lecture/${lecture.lectureId}/student/${student.username}/enrollStudent?isPresent=${student.checked}"
+                                   method="post" modelAttribute="lecture">
+                            <input type="hidden" value="${lecture}"/>
                             <tr>
-                                <td>${student.firstName}</td>
+                                <td><span id="firstname">${student.firstName}</span></td>
                                 <td>${student.lastName}</td>
-                                <td>${groups.name}</td>
-                                <td><input type="checkbox" class="change-js" ${lecture.students.contains(student)?'checked':''} onchange="lectureComponent.enrollCheckbox()"/></td>
+                                <td>${student.groupName}</td>
+                                <td>${student.checked}</td>
+                                <td><input type="submit" value="Submit"/>
+                                </td>
                             </tr>
-                        </c:forEach>
+                        </form:form>
                     </c:forEach>
                 </table>
             </div>

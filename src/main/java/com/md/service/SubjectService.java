@@ -10,4 +10,8 @@ public interface SubjectService {
     void save(Subject subject);
 
     void saveAll(List<Subject> subjects);
+
+    Subject getSubject(final String name);
+
+    Subject getSubject(final int id);
 }

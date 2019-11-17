@@ -1,5 +1,7 @@
 package com.md.DTO;
 
+import com.md.model.Subject;
+
 import java.util.List;
 
 public class LectureDTO {
@@ -15,6 +17,16 @@ public class LectureDTO {
     private List<String> groups;
 
     private Integer ordinalNumber;
+
+    private Subject subject;
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
 
     public String getName() {
         return name;

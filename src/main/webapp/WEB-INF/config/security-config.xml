@@ -18,7 +18,7 @@
         <intercept-url pattern="/security/**" access="hasRole('ADMIN')"/>
         <!--Если попытаться войти без логина на страницу в этом маппинге (например http://localhost:8080/user/),
         то будет переброшено на страницу, указанную в form-login login-page='pageName.html' -->
-        <intercept-url pattern="/user/**" access="hasRole('USER')"/>
+        <intercept-url pattern="/student/**" access="hasRole('USER')"/>
 
 
         <form-login login-page="/login.html"
@@ -26,8 +26,8 @@
                     password-parameter="j_password"
                     login-processing-url="/j_spring_security_check"
                     authentication-failure-url="/login.html?error=true"
-                    authentication-success-handler-ref="userAuthenticationSuccessSecurityHandler"
         />
+        <!--authentication-success-handler-ref="userAuthenticationSuccessSecurityHandler"-->
 
         <logout logout-url="/j_spring_security_logout" logout-success-url="/"/>
 

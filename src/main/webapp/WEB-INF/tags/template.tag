@@ -27,9 +27,7 @@
     <spring:url value="/resources/js/bootstrap.min.js" var="js"/>
     <script src="${js}"></script>
 
-    <!-- jQuery -->
-    <spring:url value="/resources/js/jquery-2.1.4.min.js" var="jqueryjs"/>
-    <script src="${jqueryjs}"></script>
+
 
 
 </head>
@@ -42,7 +40,12 @@
 <jsp:doBody/>
 
 <headerTemplate:angular-temaplate/>
+<!-- jQuery -->
+<spring:url value="https://code.jquery.com/jquery-3.1.1.min.js" var="jqueryjs"/>
+<script src="${jqueryjs}"></script>
 
+<spring:url value="/resources/js/lecture.js" var="lecturejs"/>
+<script src="${lecturejs}"></script>
 </body>
 
 </html>

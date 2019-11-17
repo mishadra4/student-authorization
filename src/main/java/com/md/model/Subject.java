@@ -1,10 +1,19 @@
 package com.md.model;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
-@Entity(name = "SUBJECT")
-@Table(name = "SUBJECT")
+@Entity
 public class Subject {
 
     @Id
@@ -18,12 +27,15 @@ public class Subject {
     @ManyToOne
     private Lecturer lecturer;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "subject_student_mapping",
+            name = "subject_group_mapping",
             joinColumns = @JoinColumn(name = "subject_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id"))
-    private List<Student> students;
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<Groups> groups;
+
+    @OneToMany(mappedBy = "subject", fetch = FetchType.EAGER)
+    private Set<Lecture> lectures;
 
     public Integer getId() {
         return id;
@@ -49,11 +61,19 @@ public class Subject {
         this.lecturer = lecturer;
     }
 
-    public List<Student> getStudents() {
-        return students;
+    public Set<Groups> getGroups() {
+        return groups;
     }
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
+    public void setGroups(Set<Groups> groups) {
+        this.groups = groups;
+    }
+
+    public Set<Lecture> getLectures() {
+        return lectures;
+    }
+
+    public void setLectures(Set<Lecture> lectures) {
+        this.lectures = lectures;
     }
 }

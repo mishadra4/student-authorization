@@ -49,29 +49,19 @@
                             code="navMenu.logout"/></a></li>
                 </c:if>
                 <c:if test="${isAdmin}">
-                    <c:url value="/lecture.html" var="lecture"/>
+                    <c:url value="/subject" var="lecture"/>
                     <li><a href="${lecture}"><spring:message code="navMenu.lectures"/></a></li>
+                    <%--<li class="dropdown">--%>
+                        <%--<a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="navMenu.tutorial"/><b--%>
+                                <%--class="caret"></b></a>--%>
+                        <%--<ul class="dropdown-menu">--%>
+                            <%--<li>--%>
+
+                                <%--<a href="/login.html">Загрузка файла PDF и Excel</a>--%>
+                            <%--</li>--%>
+                        <%--</ul>--%>
+                    <%--</li>--%>
                 </c:if>
-                <%--<c:if test="${isAdmin}">--%>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><spring:message code="navMenu.tutorial"/><b
-                            class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="/login.html">Загрузка файла PDF и Excel</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="angularIndex" class="dropdown-toggle" data-toggle="dropdown">
-                        <spring:message code="navMenu.angularjs"/><b class="caret"></b> </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="#">Содержание тем AngularJS</a>
-                        </li>
-                    </ul>
-                </li>
-                <%--</c:if>--%>
             </ul>
         </div>
 

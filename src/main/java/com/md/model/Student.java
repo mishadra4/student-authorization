@@ -1,27 +1,20 @@
 package com.md.model;
 
 
-import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import java.util.List;
+import java.util.Objects;
 
 @Entity(name = "student")
-@Table(name = "student")
 public class Student extends User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_id")
-    private Integer id;
-
-    @NotEmpty
-    @Column(name = "FIRST_NAME")
-    private String firstName;
-
-    @NotEmpty
-    @Column(name = "LAST_NAME")
-    private String lastName;
+    private String id;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "group_group_id")
@@ -29,22 +22,6 @@ public class Student extends User {
 
     @ManyToMany(mappedBy = "students")
     private List<Lecture> lectures;
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public Groups getGroups() {
         return groups;
@@ -54,12 +31,12 @@ public class Student extends User {
         this.groups = groups;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getId() {
+        return id;
     }
 
-    public Integer getId() {
-        return id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public List<Lecture> getLectures() {
@@ -68,5 +45,18 @@ public class Student extends User {
 
     public void setLectures(List<Lecture> lectures) {
         this.lectures = lectures;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(getUsername(), student.getUsername());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, groups, lectures);
     }
 }

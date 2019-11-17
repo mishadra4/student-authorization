@@ -1,12 +1,23 @@
 package com.md.model;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity(name = "lecture")
 @Table(name = "lecture")
-public class  Lecture {
+public class Lecture {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +34,9 @@ public class  Lecture {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "qr_code_filepath")
+    private String qrCodeFilepath;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "lecture_group_mapping",
@@ -38,15 +52,19 @@ public class  Lecture {
     @JoinTable(
             name = "lecture_student_mapping",
             joinColumns = @JoinColumn(name = "lecture_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id"))
+            inverseJoinColumns = @JoinColumn(name = "username"))
     private List<Student> students;
 
-    public void setLectureId(Integer lectureId) {
-        this.lectureId = lectureId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    private Subject subject;
 
     public Integer getLectureId() {
         return lectureId;
+    }
+
+    public void setLectureId(Integer lectureId) {
+        this.lectureId = lectureId;
     }
 
     public String getName() {
@@ -95,5 +113,21 @@ public class  Lecture {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public String getQrCodeFilepath() {
+        return qrCodeFilepath;
+    }
+
+    public void setQrCodeFilepath(String qrCodeFilepath) {
+        this.qrCodeFilepath = qrCodeFilepath;
     }
 }

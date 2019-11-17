@@ -19,8 +19,15 @@ CREATE TABLE IF NOT EXISTS `student_authorization`.`user` (
   `password` VARCHAR(255) NOT NULL,
   `first_name` VARCHAR(45),
   `last_name` VARCHAR(45),
+  `student_id` VARCHAR(45),
+  `group_group_id` INT NOT NULL,
   `enabled` TINYINT NULL,
-  PRIMARY KEY (`username`))
+  PRIMARY KEY (`username`),
+  CONSTRAINT `fk_student_group_map`
+    FOREIGN KEY (`group_group_id`)
+    REFERENCES `student_authorization`.`groups` (`group_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
@@ -120,16 +127,16 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `student_authorization`.`subject_has_student` (
   `subject_id` INT NOT NULL,
-  `student_id` INT NOT NULL,
-  PRIMARY KEY (`subject_id`, `student_id`),
+  `username` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`subject_id`, `username`),
   CONSTRAINT `fk_subject_has_student_subject1`
     FOREIGN KEY (`subject_id`)
     REFERENCES `student_authorization`.`subject` (`subject_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_subject_has_student_student1`
-    FOREIGN KEY (`student_id`)
-    REFERENCES `student_authorization`.`student` (`student_id`)
+    FOREIGN KEY (`username`)
+    REFERENCES `student_authorization`.`user` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -186,16 +193,16 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `student_authorization`.`lecture_student_mapping` (
   `lecture_id` INT NOT NULL,
-  `student_id` INT NOT NULL,
-  PRIMARY KEY (`lecture_id`, `student_id`),
+  `username` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`lecture_id`, `username`),
   CONSTRAINT `fk_lecture_student_mapping_lecture`
     FOREIGN KEY (`lecture_id`)
     REFERENCES `student_authorization`.`lecture` (`lecture_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_lecture_student_mapping_student`
-    FOREIGN KEY (`student_id`)
-    REFERENCES `student_authorization`.`student` (`student_id`)
+    FOREIGN KEY (`username`)
+    REFERENCES `student_authorization`.`user` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

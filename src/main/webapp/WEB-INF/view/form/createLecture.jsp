@@ -26,6 +26,8 @@
                 <input id="inputLectureOrdinalNumber" class="form-control-lecture" name="ordinalNumber" required
                        placeholder="<spring:message code="form.lecture.ordinal.number"/>"/>
 
+                <input type="hidden" name="subject" value="${subject}"/>
+
                 <label>Виберіть необхідні групи</label><br/>
                 <%--<label>${groups.name}</label>--%>
                 <form:checkboxes items="${groups}" path="groups" />
