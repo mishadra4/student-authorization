@@ -36,7 +36,7 @@
         <!-- I don't know why, but with 5.0.5 final app not working! -->
 
         <!-- Spring Data -->
-        <spring-framework.data.version>1.9.1.RELEASE</spring-framework.data.version>
+        <spring-framework.data.version>1.11.23.RELEASE</spring-framework.data.version>
 
         <!-- Quartz scheduling framework -->
         <quartz.scheduling.version>2.2.1</quartz.scheduling.version>
@@ -307,7 +307,7 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
-            <version>2.0.9.RELEASE</version>
+            <version>1.11.23.RELEASE</version>
         </dependency>
     </dependencies>
 
