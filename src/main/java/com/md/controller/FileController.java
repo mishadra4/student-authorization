@@ -186,9 +186,9 @@ public class FileController {
             subject.setLecturer(lecturerService.getLecturerByUsername(subjectData.getLecturerUsername()));
         }
         if (subject.getGroups() != null) {
-            subject.getGroups().add(groupService.getGroup(subjectData.getGroupName()));
+            subject.getGroups().add(groupService.getGroup(subjectData.getGroupNames().get(0)));
         } else {
-            subject.setGroups(new HashSet<>(Collections.singleton(groupService.getGroup(subjectData.getGroupName()))));
+            subject.setGroups(new HashSet<>(Collections.singleton(groupService.getGroup(subjectData.getGroupNames().get(0)))));
         }
         subjectService.save(subject);
     }

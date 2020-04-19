@@ -1,9 +1,9 @@
 package com.md.dao.impl;
 
+import com.md.dao.StudentDao;
 import com.md.model.Student;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import com.md.dao.StudentDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

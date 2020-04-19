@@ -7,8 +7,6 @@ import com.md.facade.dto.StudentData;
 import com.md.facade.dto.SubjectData;
 import com.md.model.Groups;
 import com.md.model.Lecturer;
-import com.md.model.Student;
-import com.md.model.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -22,7 +20,7 @@ import java.util.List;
 public class CSVLoader {
     private static Logger LOG = LoggerFactory.getLogger(CSVLoader.class);
 
-    private  <T> List<T> loadObjectList(Class<T> type, File file) {
+    private <T> List<T> loadObjectList(Class<T> type, File file) {
         try {
             CsvSchema bootstrapSchema = CsvSchema.emptySchema().withHeader();
             CsvMapper mapper = new CsvMapper();

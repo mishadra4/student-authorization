@@ -1,11 +1,13 @@
 package com.md.facade.dto;
 
+import java.util.List;
+
 public class SubjectData {
+    public List<GroupData> groups;
+    private int id;
     private String name;
-
     private String lecturerUsername;
-
-    private String groupName;
+    private List<String> groupNames;
 
     public String getName() {
         return name;
@@ -23,11 +25,27 @@ public class SubjectData {
         this.lecturerUsername = lecturerUsername;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public List<String> getGroupNames() {
+        return groupNames;
     }
 
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public void setGroupNames(List<String> groupNames) {
+        this.groupNames = groupNames;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<GroupData> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<GroupData> groups) {
+        this.groups = groups;
     }
 }

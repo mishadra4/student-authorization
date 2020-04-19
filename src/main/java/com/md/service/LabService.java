@@ -1,7 +1,6 @@
 package com.md.service;
 
 import com.md.model.Lab;
-import com.md.model.Lecture;
 
 import java.util.List;
 

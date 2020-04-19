@@ -12,5 +12,7 @@ public interface LectureDao {
 
     List<Lecture> getLectures(String lecturerUsername);
 
-    void saveLecture(Lecture lecture);
+    Lecture saveLecture(Lecture lecture);
+
+    List<Lecture> getLecturesBySubject(String subjectId);
 }

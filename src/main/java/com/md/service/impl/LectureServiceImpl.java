@@ -35,6 +35,11 @@ public class LectureServiceImpl implements LectureService {
     }
 
     @Override
+    public List<Lecture> getLectures(String subjectId) {
+        return lectureDao.getLecturesBySubject(subjectId);
+    }
+
+    @Override
     public void unEnrollStudent(int lectureId, Student student) {
         final Lecture lecture = getLecture(lectureId);
         lecture.getStudents().remove(student);
@@ -42,8 +47,8 @@ public class LectureServiceImpl implements LectureService {
     }
 
     @Override
-    public void saveLecture(Lecture lecture) {
-        lectureDao.saveLecture(lecture);
+    public Lecture saveLecture(Lecture lecture) {
+        return lectureDao.saveLecture(lecture);
     }
 
     public LectureDao getLectureDao() {

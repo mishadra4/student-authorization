@@ -1,7 +1,6 @@
 package com.md.dao.impl;
 
 import com.md.dao.SubjectDao;
-import com.md.model.Lecture;
 import com.md.model.Subject;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 
 @Repository
@@ -32,6 +32,14 @@ public class SubjectDaoImpl implements SubjectDao {
                 .stream()
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public List<Subject> getSubjects(String username) {
+        String query= "from Subject where lecturer_username = ?";
+        TypedQuery<Subject> typedQuery = entityManager.createQuery(query, Subject.class);
+        typedQuery.setParameter(1, username);
+        return typedQuery.getResultList();
     }
 
     @Override

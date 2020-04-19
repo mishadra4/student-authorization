@@ -55,7 +55,7 @@
                     </ul>
 
                     <li>
-                        <a href="/createLecture">
+                        <a href="/createLecture?subjectId=${subject.id}">
                             <i class="fa fa-user fa-lg"></i> <spring:message code="form.lectures.create"/>
                         </a>
                     </li>
@@ -69,6 +69,10 @@
                 </ul>
             </div>
         </div>
-
+        <c:if test="${subject != null}">
+            <div class="students">
+                <a href="/app/report/subject/${subject.name}">Завантажити список відвідування</a>
+            </div>
+        </c:if>
     </jsp:body>
 </page:template>

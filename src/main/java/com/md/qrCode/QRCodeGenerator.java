@@ -6,7 +6,6 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
-import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.file.FileSystems;
@@ -20,7 +19,7 @@ public class QRCodeGenerator {
 
     public static String generateQRCodeImage(int lectureId) throws WriterException, IOException {
         InetAddress inetAddress = InetAddress.getLocalHost();
-        final String lectureUrl = "http://" + inetAddress.getHostAddress() + ":8081/lecture/" + lectureId + "/enrollStudent";
+        final String lectureUrl = "http://" + inetAddress.getHostAddress() + ":4200/lecture/" + lectureId + "/enroll";
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(lectureUrl, BarcodeFormat.QR_CODE, width, height);
 

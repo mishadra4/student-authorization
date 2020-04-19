@@ -2,7 +2,7 @@
 <beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
 
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns="http://www.springframework.org/schema/security" xmlns:mvc="http://www.springframework.org/schema/c"
+             xmlns="http://www.springframework.org/schema/security"
              xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/security
@@ -39,16 +39,29 @@
     </http>
 
 
-    <beans:bean id="userAuthenticationSuccessSecurityHandler" class="com.md.service.handler.UserAuthenticationSuccessSecurityHandler"/>
+    <!--<beans:bean id="userAuthenticationSuccessSecurityHandler" class="com.md.service.handler.UserAuthenticationSuccessSecurityHandler"/>-->
 
-    <jdbc-user-service id="jdbcUserService" data-source-ref="dataSource"
-                       users-by-username-query="SELECT USERNAME, PASSWORD, ENABLED FROM USER WHERE USERNAME=?"
-                       authorities-by-username-query="SELECT U.USERNAME, A.AUTHORITY
-        	 FROM AUTHORITIES A, USER U WHERE U.USERNAME = A.USERNAME AND U.USERNAME = ? "/>
+    <!--<jdbc-user-service id="jdbcUserService" data-source-ref="dataSource"-->
+    <!--users-by-username-query="SELECT USERNAME, PASSWORD, ENABLED FROM USER WHERE USERNAME=?"-->
+    <!--authorities-by-username-query="SELECT U.USERNAME, A.AUTHORITY-->
+    <!--FROM AUTHORITIES A, USER U WHERE U.USERNAME = A.USERNAME AND U.USERNAME = ? "/>-->
 
     <authentication-manager alias="authenticationManager">
-        <authentication-provider user-service-ref="jdbcUserService"/>
+        <authentication-provider ref="customAuthenticationProvider"/>
     </authentication-manager>
 
+    <beans:bean id="userDetailsService" class="com.md.service.impl.UserDetailsServiceImpl">
+        <beans:property name="userDetailsDao" ref="userDetailsDao"/>
+    </beans:bean>
+    <beans:bean id="userDetailsDao" class="com.md.dao.impl.UserDetailsDaoImpl">
+        <beans:property name="entityManager" ref="entityManager"/>
+    </beans:bean>
 
+    <beans:bean id="entityManager" class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
+        <beans:property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </beans:bean>
+
+    <beans:bean id="customAuthenticationProvider" class="com.md.rest.CustomAuthenticationProvider">
+        <beans:property name="userDetailsService" ref="userDetailsService"/>
+    </beans:bean>
 </beans:beans>

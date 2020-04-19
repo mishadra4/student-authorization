@@ -20,7 +20,7 @@ public class SubjectController {
     private LecturerService lecturerService;
 
     @RequestMapping(method = RequestMethod.GET)
-    private ModelAndView getMainPage(final Authentication authentication)
+    public ModelAndView getMainPage(final Authentication authentication)
     {
         ModelAndView modelAndView = new ModelAndView(SUBJECT_PAGE);
         User user = (User) authentication.getPrincipal();

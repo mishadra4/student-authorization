@@ -1,11 +1,8 @@
 package com.md.dao.impl;
 
 import com.md.dao.LectureDao;
-import com.md.model.Groups;
 import com.md.model.Lecture;
-import com.md.model.Student;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -42,8 +39,16 @@ public class LectureDaoImpl implements LectureDao {
     }
 
     @Override
-    public void saveLecture(Lecture lecture) {
-        entityManager.merge(lecture);
+    public List<Lecture> getLecturesBySubject(String subjectId) {
+        String query = "select l from lecture as l left join l.subject as s where s.name =? order by l.ordinalNumber";
+        TypedQuery<Lecture> typedQuery = entityManager.createQuery(query, Lecture.class);
+        typedQuery.setParameter(1, subjectId);
+        return typedQuery.getResultList();
+    }
+
+    @Override
+    public Lecture saveLecture(Lecture lecture) {
+        return entityManager.merge(lecture);
     }
 
     public void setEntityManager(EntityManager entityManager) {

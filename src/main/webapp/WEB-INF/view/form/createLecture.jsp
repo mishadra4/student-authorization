@@ -8,7 +8,7 @@
     <jsp:body>
 
         <div class="form-lecture">
-            <form:form action="/createLecture" method="post" modelAttribute="lecture">
+            <form:form action="/submitLecture?subjectId=${subject.id}" method="POST" modelAttribute="lecture">
 
                 <h3 class="form-signin-heading"><spring:message code="form.please.enter.lecture"/></h3>
 
@@ -26,7 +26,7 @@
                 <input id="inputLectureOrdinalNumber" class="form-control-lecture" name="ordinalNumber" required
                        placeholder="<spring:message code="form.lecture.ordinal.number"/>"/>
 
-                <input type="hidden" name="subject" value="${subject}"/>
+                        <%--<input type="hidden" name="subject" value="${subject}"/>--%>
 
                 <label>Виберіть необхідні групи</label><br/>
                 <%--<label>${groups.name}</label>--%>

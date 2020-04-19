@@ -21,22 +21,22 @@
                         </a>
                     </li>
 
-                    <li data-toggle="collapse" data-target="#subjects" class="collapsed active">
+                    <li data-toggle="collapse" data-target="#subjects" class="active">
                         <a href="#"><i class="fa fa-gift fa-lg"></i> <spring:message code="form.subjects.title"/><span
                                 class="arrow"></span></a>
                     </li>
-                    <ul class="sub-menu collapse" id="subjects">
+                    <ul class="sub-menu collapse in" id="subjects" aria-expanded="true">
                         <c:forEach items="${subjects}" var="subject">
                             <li class="active"><a href="/subject/${subject.id}/lecture">${subject.name}</a></li>
                         </c:forEach>
                     </ul>
-                    <c:if test="${not empty subject}">
-                        <li data-toggle="collapse" data-target="#products" class="collapsed active">
+                    <c:if test="${not empty subjects}">
+                        <li data-toggle="collapse" data-target="#products" class="active">
                             <a href="#"><i class="fa fa-gift fa-lg"></i> <spring:message
                                     code="form.lectures.title"/><span
                                     class="arrow"></span></a>
                         </li>
-                        <ul class="sub-menu collapse" id="products">
+                        <ul class="sub-menu collapse in" id="products" aria-expanded="true">
                             <c:forEach items="${lectures}" var="lecture">
                                 <li class="active"><a href="/lecture/${lecture.lectureId}">${lecture.name}</a></li>
                             </c:forEach>
@@ -56,7 +56,7 @@
                         </ul>
 
                         <li>
-                            <a href="/subject/${subject.id}/createLecture">
+                            <a href="/createLecture?subjectId=${subject.id}">
                                 <i class="fa fa-user fa-lg"></i> <spring:message code="form.lectures.create"/>
                             </a>
                         </li>
@@ -72,6 +72,7 @@
         </div>
         <c:if test="${not empty groups}">
             <div class="students">
+                <h2>${subject.name}</h2>
                 <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${lecture.filePath}" width="400"
                      height="400"/>
                 <table class="students-table">

@@ -2,12 +2,7 @@ package com.md.dao.impl;
 
 import com.md.dao.LecturerDao;
 import com.md.model.Lecturer;
-import com.md.model.Student;
-import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;

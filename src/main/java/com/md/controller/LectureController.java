@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
@@ -55,7 +56,7 @@ public class LectureController {
 
     @RequestMapping(value = "/subject/{subjectId}/lecture", method = RequestMethod.GET)
     public ModelAndView getLecture(final Authentication authentication, @PathVariable final int subjectId) {
-        ModelAndView lecture = new ModelAndView("/form/lecture");
+        ModelAndView lecture = new ModelAndView("/form/subject");
         User user = (User) authentication.getPrincipal();
         Lecturer lecturer = lecturerService.getLecturerByUsername(user.getUsername());
         Subject subject = subjectService.getSubject(subjectId);
@@ -74,8 +75,8 @@ public class LectureController {
         return lectureView;
     }
 
-    @RequestMapping(value = "/subject/{subjectId}/createLecture")
-    public ModelAndView createLecturePage(final Authentication authentication, @PathVariable final int subjectId) {
+    @RequestMapping(value = "/createLecture", method = RequestMethod.GET)
+    public ModelAndView createLecturePage(final Authentication authentication, @RequestParam final int subjectId) {
         User user = (User) authentication.getPrincipal();
         final Subject subject = subjectService.getSubject(subjectId);
         Lecturer lecturer = lecturerService.getLecturerByUsername(user.getUsername());
@@ -87,28 +88,32 @@ public class LectureController {
         return lecture;
     }
 
-    @RequestMapping(value = "/createLecture", method = RequestMethod.POST)
-    public ModelAndView createLecture(@ModelAttribute LectureDTO lecture, Authentication authentication) {
+    @RequestMapping(value = "/submitLecture", method = RequestMethod.POST)
+    public ModelAndView createLecture(@ModelAttribute LectureDTO lecture, Authentication authentication, @RequestParam final int subjectId) {
         ModelAndView lectureView = new ModelAndView("/form/lecture");
         User user = (User) authentication.getPrincipal();
         lecture.setLecturerUsername(user.getUsername());
+        final Subject subject = subjectService.getSubject(subjectId);
+        lecture.setSubject(subject);
         List<Groups> groups = lecture.getGroups().stream()
                 .map(groupService::getGroup).collect(Collectors.toList());
         lectureView.addObject("lecture", lecture);
         lectureView.addObject("present", true);
         lectureView.addObject("groups", groups);
-        lectureService.saveLecture(lectureConverter.convertToEntity(lecture));
+//        Lecture l = lectureService.saveLecture(lectureConverter.convertToEntity(lecture));
 
-        return getLectures(lecture.getId(), authentication);
+        return null;//getLectures(l.getLectureId(), authentication);
     }
 
     private void populateLecture(final int lectureId, final ModelAndView lectureView, final String username) {
         LectureData lectureData = new LectureData();
-        List<Lecture> lectures = lectureService.getLecture(username);
         Lecture lecture = lectureService.getLecture(lectureId);
+        Lecturer lecturer = lecturerService.getLecturerByUsername(username);
         createQrCode(lecture);
         populateStudents(lecture, lectureData);
-        lectureView.addObject("lectures", lectures);
+        lectureView.addObject("lectures", lecture.getSubject().getLectures());
+        lectureView.addObject("subjects", lecturer.getSubjects());
+        lectureView.addObject("subject", lecture.getSubject());
         lectureView.addObject("groups", lecture.getGroups());
         lectureView.addObject("lecture", lectureData);
     }

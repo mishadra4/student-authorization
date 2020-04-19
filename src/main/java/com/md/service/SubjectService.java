@@ -14,4 +14,6 @@ public interface SubjectService {
     Subject getSubject(final String name);
 
     Subject getSubject(final int id);
+
+    List<Subject> getSubjects(final String username);
 }

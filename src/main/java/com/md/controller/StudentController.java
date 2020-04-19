@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@CrossOrigin
 public class StudentController {
 
     @Autowired
@@ -48,6 +50,19 @@ public class StudentController {
             lectureService.enrollStudent(lectureId, student);
         }
         return "redirect: /lecture/" + lectureId;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/lecture/{lectureId}/student/{username}/enroll", method = RequestMethod.POST)
+    public ResponseEntity enrollStudent(@PathVariable final int lectureId, @PathVariable final String username) {
+        Student student = studentService.getStudent(username);
+        boolean isPresent = lectureService.getLecture(lectureId).getStudents().contains(student);
+        if (isPresent) {
+            lectureService.unEnrollStudent(lectureId, student);
+        } else {
+            lectureService.enrollStudent(lectureId, student);
+        }
+        return ResponseEntity.ok().build();
     }
 
     public LectureService getLectureService() {

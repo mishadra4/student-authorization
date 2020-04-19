@@ -16,6 +16,16 @@ public class StudentData {
 
     private String groupName;
 
+    private boolean enabled;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public String getPassword() {
         return password;
     }

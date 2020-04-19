@@ -2,12 +2,10 @@ package com.md.service.impl;
 
 import com.md.dao.GroupDao;
 import com.md.model.Groups;
-import com.md.model.Student;
 import com.md.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

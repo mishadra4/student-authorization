@@ -1,7 +1,6 @@
 package com.md.dao;
 
 import com.md.model.Lab;
-import com.md.model.Lecture;
 
 import java.util.List;
 
